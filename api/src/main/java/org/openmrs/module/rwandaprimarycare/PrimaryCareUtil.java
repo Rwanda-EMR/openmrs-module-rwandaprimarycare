@@ -3,8 +3,12 @@ package org.openmrs.module.rwandaprimarycare;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.StringTokenizer;
+import java.util.WeakHashMap;
+
 import javax.servlet.http.HttpSession;
 import org.openmrs.GlobalProperty;
 
@@ -21,6 +25,8 @@ import org.openmrs.Person;
 import org.openmrs.PatientIdentifierType;
 import org.openmrs.PersonAttribute;
 import org.openmrs.PersonAttributeType;
+import org.openmrs.User;
+import org.openmrs.api.APIAuthenticationException;
 import org.openmrs.api.PersonService;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.idgen.IdentifierSource;
@@ -38,6 +44,10 @@ import org.openmrs.module.mohappointment.utils.AppointmentUtil;
 public class PrimaryCareUtil {
 
     protected final static Log log = LogFactory.getLog(PrimaryCareUtil.class);
+    
+    // A place to store data that will persist longer than a session, but won't
+  	// persist beyond application restart
+  	private static Map<User, Map<String, Object>> volatileUserData = new WeakHashMap<User, Map<String, Object>>();
     
     public static Obs newObs(Patient patient, Concept c, Date obsDate, Location location){
         Obs ret = new Obs();
@@ -226,7 +236,7 @@ public class PrimaryCareUtil {
      * @return location code as String
      */
     private static String evaluatePrimaryCareLocationCode(){
-        Object myLocationObj =  Context.getVolatileUserData(PrimaryCareConstants.VOLATILE_USER_DATA_LOGIN_LOCATION);
+        Object myLocationObj =  getVolatileUserData(PrimaryCareConstants.VOLATILE_USER_DATA_LOGIN_LOCATION);
         if (myLocationObj == null){
             String ret = Context.getAdministrationService().getGlobalProperty(PrimaryCareConstants.GLOBAL_PROPERTY_DEFAULT_LOCATION_CODE);
             if (ret != null && !ret.equals(""))
@@ -691,4 +701,46 @@ public class PrimaryCareUtil {
 
         return insurances;
     }
+    
+    /**
+	 * Get a piece of information for the currently authenticated user. This information is stored
+	 * only temporarily. When a new module is loaded or the server is restarted, this information
+	 * will disappear. If there is not information by this key, null is returned.
+	 * 
+	 * @param key identifying string for the information
+	 * @return the information stored
+	 */
+	public static Object getVolatileUserData(String key) {
+		User u = Context.getAuthenticatedUser();
+		if (u == null) {
+			throw new APIAuthenticationException();
+		}
+		Map<String, Object> myData = volatileUserData.get(u);
+		if (myData == null) {
+			return null;
+		} else {
+			return myData.get(key);
+		}
+	}
+	
+	/**
+	 * Set a piece of information for the currently authenticated user. This information is stored
+	 * only temporarily. When a new module is loaded or the server is restarted, this information
+	 * will disappear
+	 * 
+	 * @param key identifying string for this information
+	 * @param value information to be stored
+	 */
+	public static void setVolatileUserData(String key, Object value) {
+		User u = Context.getAuthenticatedUser();
+		if (u == null) {
+			throw new APIAuthenticationException();
+		}
+		Map<String, Object> myData = volatileUserData.get(u);
+		if (myData == null) {
+			myData = new HashMap<String, Object>();
+			volatileUserData.put(u, myData);
+		}
+		myData.put(key, value);
+	}
 }

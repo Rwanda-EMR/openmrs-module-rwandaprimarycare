@@ -23,8 +23,8 @@ import org.openmrs.Person;
 import org.openmrs.PersonAttribute;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.mohappointment.utils.AppointmentUtil;
-import org.openmrs.module.mohbilling.businesslogic.InsurancePolicyUtil;
-import org.openmrs.module.mohbilling.model.InsurancePolicy;
+import org.openmrs.parameter.EncounterSearchCriteria;
+import org.openmrs.parameter.EncounterSearchCriteriaBuilder;
 import org.openmrs.util.OpenmrsUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -120,7 +120,13 @@ public class RwandaPrimaryCarePatientDashboardController {
 	            {
 	            	day = PrimaryCareBusinessLogic.getStartAndEndOfDay(new Date());
 	            }
-	            List<Encounter> today = Context.getEncounterService().getEncounters(patient, null, day[0], day[1], null, null, false);
+	            
+	            EncounterSearchCriteria encounterSearchCriteria = new EncounterSearchCriteriaBuilder()
+	            		.setPatient(patient)
+	            		.setFromDate(day[0])
+	            		.setToDate(day[1])
+	    		        .setIncludeVoided(false).createEncounterSearchCriteria();
+	            List<Encounter> today = Context.getEncounterService().getEncounters(encounterSearchCriteria);
 	            Collections.sort(today, new Comparator<Encounter>() {
 	                public int compare(Encounter left, Encounter right) {
 	                    return OpenmrsUtil.compareWithNullAsEarliest(left.getEncounterDatetime(), right.getEncounterDatetime());
@@ -140,7 +146,12 @@ public class RwandaPrimaryCarePatientDashboardController {
 	                cal.add(Calendar.MILLISECOND, -1);
 	                endOfYesterday = cal.getTime();
 	            }
-	            List<Encounter> beforeToday = Context.getEncounterService().getEncounters(patient, null, null, endOfYesterday, null, null, false);
+	            
+	            encounterSearchCriteria = new EncounterSearchCriteriaBuilder()
+	            		.setPatient(patient)
+	            		.setToDate(endOfYesterday)
+	    		        .setIncludeVoided(false).createEncounterSearchCriteria();
+	            List<Encounter> beforeToday = Context.getEncounterService().getEncounters(encounterSearchCriteria);
 	            model.addAttribute("beforeToday", beforeToday);
 	        }
 	        List<Person> parents = PrimaryCareBusinessLogic.getParents(Context.getPatientService().getPatient(patientId));
@@ -175,7 +186,7 @@ public class RwandaPrimaryCarePatientDashboardController {
 	                o.setValueCoded(Context.getConceptService().getConcept(serviceRequestResponse));
 	                registrationEncounterToday.addObs(o);
 	                registrationEncounterToday = PrimaryCareBusinessLogic.saveEncounterAndVerifyVisit(registrationEncounterToday);
-					PrimaryCareUtil.createWaitingAppointment(registrationEncounterToday.getProvider(), registrationEncounterToday, o, session, Context.getConceptService().getConcept(serviceRequestResponse));
+					PrimaryCareUtil.createWaitingAppointment(registrationEncounterToday.getEncounterProviders().iterator().next().getProvider().getPerson(), registrationEncounterToday, o, session, Context.getConceptService().getConcept(serviceRequestResponse));
 
 				} else {
 	            	//edit existing obs
@@ -187,7 +198,7 @@ public class RwandaPrimaryCarePatientDashboardController {
 		            			o.setValueCoded(Context.getConceptService().getConcept(serviceRequestResponse));
 		            			registrationEncounterToday = PrimaryCareBusinessLogic.saveEncounterAndVerifyVisit(registrationEncounterToday);
 								AppointmentUtil.voidAppointmentByObs(o);
-								PrimaryCareUtil.createWaitingAppointment(registrationEncounterToday.getProvider(), registrationEncounterToday, o, session, Context.getConceptService().getConcept(serviceRequestResponse));
+								PrimaryCareUtil.createWaitingAppointment(registrationEncounterToday.getEncounterProviders().iterator().next().getProvider().getPerson(), registrationEncounterToday, o, session, Context.getConceptService().getConcept(serviceRequestResponse));
 	            			} else {
 	            				//void the duplicate
 	            				Context.getObsService().voidObs(o, "duplicate service requested in touchscreen app");

@@ -25,9 +25,8 @@ import org.openmrs.api.APIException;
 import org.openmrs.api.EncounterService;
 import org.openmrs.api.UserService;
 import org.openmrs.api.context.Context;
-import org.openmrs.module.Activator;
 import org.openmrs.module.BaseModuleActivator;
-import org.openmrs.util.OpenmrsConstants;
+import org.openmrs.util.PrivilegeConstants;
 
 /**
  * This class contains the logic that is run every time this module
@@ -71,10 +70,10 @@ public class RwandaPrimaryCareActivator extends BaseModuleActivator implements R
 	            Thread.sleep(10000);
 	            // Start new OpenMRS session on this thread
 	            Context.openSession();
-	            Context.addProxyPrivilege(OpenmrsConstants.PRIV_VIEW_ENCOUNTER_TYPES);
-	    	    Context.addProxyPrivilege(OpenmrsConstants.PRIV_MANAGE_ENCOUNTER_TYPES);
-	    	    Context.addProxyPrivilege(OpenmrsConstants.PRIV_MANAGE_PRIVILEGES);
-	    	    Context.addProxyPrivilege(OpenmrsConstants.PRIV_VIEW_PRIVILEGES);
+	            Context.addProxyPrivilege(PrivilegeConstants.GET_ENCOUNTER_TYPES);
+	    	    Context.addProxyPrivilege(PrivilegeConstants.MANAGE_ENCOUNTER_TYPES);
+	    	    Context.addProxyPrivilege(PrivilegeConstants.MANAGE_PRIVILEGES);
+	    	    Context.addProxyPrivilege(PrivilegeConstants.GET_PRIVILEGES);
 	    	    Context.addProxyPrivilege("Manage Encounter Roles");
 	    	    Context.addProxyPrivilege("View Visit Types");
 	    	    Context.addProxyPrivilege("Manage Visit Types");
@@ -83,10 +82,10 @@ public class RwandaPrimaryCareActivator extends BaseModuleActivator implements R
 	            ex.printStackTrace();
 	            throw new RuntimeException("Could not pre-load rwanda primary care encounter types and privileges " + ex);
 	        } finally {
-		        Context.removeProxyPrivilege(OpenmrsConstants.PRIV_VIEW_ENCOUNTER_TYPES);
-		        Context.removeProxyPrivilege(OpenmrsConstants.PRIV_MANAGE_ENCOUNTER_TYPES);
-		        Context.removeProxyPrivilege(OpenmrsConstants.PRIV_MANAGE_PRIVILEGES);
-		        Context.removeProxyPrivilege(OpenmrsConstants.PRIV_VIEW_PRIVILEGES);
+		        Context.removeProxyPrivilege(PrivilegeConstants.GET_ENCOUNTER_TYPES);
+		        Context.removeProxyPrivilege(PrivilegeConstants.MANAGE_ENCOUNTER_TYPES);
+		        Context.removeProxyPrivilege(PrivilegeConstants.MANAGE_PRIVILEGES);
+		        Context.removeProxyPrivilege(PrivilegeConstants.GET_PRIVILEGES);
 		        Context.removeProxyPrivilege("Manage Encounter Roles");
 		        Context.removeProxyPrivilege("View Visit Types");
 		        Context.removeProxyPrivilege("Manage Visit Types");

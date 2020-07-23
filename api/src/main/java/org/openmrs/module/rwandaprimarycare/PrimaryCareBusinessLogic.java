@@ -42,6 +42,8 @@ import org.openmrs.module.mohbilling.model.Beneficiary;
 import org.openmrs.module.mohbilling.model.Insurance;
 import org.openmrs.module.mohbilling.model.InsurancePolicy;
 import org.openmrs.module.namephonetics.NamePhoneticsService;
+import org.openmrs.parameter.EncounterSearchCriteria;
+import org.openmrs.parameter.EncounterSearchCriteriaBuilder;
 
 
 public class PrimaryCareBusinessLogic {
@@ -81,7 +83,14 @@ public class PrimaryCareBusinessLogic {
         }
         
         Date[] day = getStartAndEndOfDay(datetime);
-        List<Encounter> any = Context.getEncounterService().getEncounters(patient, location, day[0], day[1], null, Collections.singleton(getRegistrationEncounterType()), null, false);
+        EncounterSearchCriteria encounterSearchCriteria = new EncounterSearchCriteriaBuilder()
+        		.setPatient(patient)
+        		.setLocation(location)
+        		.setFromDate(day[0])
+        		.setToDate(day[1])
+        		.setEncounterTypes(Collections.singleton(getRegistrationEncounterType()))
+		        .setIncludeVoided(false).createEncounterSearchCriteria();
+        List<Encounter> any = Context.getEncounterService().getEncounters(encounterSearchCriteria);
         if (any != null && any.size() > 0) {
             // found one
             return any.get(0);

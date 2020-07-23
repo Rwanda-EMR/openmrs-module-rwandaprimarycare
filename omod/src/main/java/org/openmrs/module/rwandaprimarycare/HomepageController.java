@@ -96,13 +96,13 @@ public class HomepageController {
                 session.setAttribute(PrimaryCareConstants.SESSION_ATTRIBUTE_WORKSTATION_LOCATION, location);
                 session.setAttribute(PrimaryCareConstants.SESSION_ATTRIBUTE_DIAGNOSIS_LOCATION_CODE, location);
                 //NOTE:   this is used by the identifier validator to determine identifier prefixes.  Default to default location global property if not found when requesting new IDs.
-                Context.setVolatileUserData(PrimaryCareConstants.VOLATILE_USER_DATA_LOGIN_LOCATION, location);
+                PrimaryCareUtil.setVolatileUserData(PrimaryCareConstants.VOLATILE_USER_DATA_LOGIN_LOCATION, location);
                 User user = Context.getAuthenticatedUser();
                 model.addAttribute("user", user);
                 
                 if (Context.getAuthenticatedUser().getUserProperty(OpenmrsConstants.USER_PROPERTY_DEFAULT_LOCATION) == null || !Context.getAuthenticatedUser().getUserProperty(OpenmrsConstants.USER_PROPERTY_DEFAULT_LOCATION).equals(locationStr)){
                     user.setUserProperty(OpenmrsConstants.USER_PROPERTY_DEFAULT_LOCATION, location.getLocationId().toString());
-                    Context.getUserService().saveUser(user, null);
+                    Context.getUserService().saveUser(user);
                 }
                 return "/module/rwandaprimarycare/homepage";
                 

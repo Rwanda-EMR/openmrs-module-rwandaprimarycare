@@ -11,6 +11,7 @@ import org.apache.commons.logging.LogFactory;
 import org.openmrs.User;
 import org.openmrs.api.context.Context;
 import org.openmrs.api.context.ContextAuthenticationException;
+import org.openmrs.util.LocaleUtility;
 import org.openmrs.util.OpenmrsConstants;
 import org.openmrs.web.OpenmrsCookieLocaleResolver;
 import org.openmrs.web.WebConstants;
@@ -54,7 +55,7 @@ public class PrimaryCareLoginController {
 					
 					if(user.getUserProperties() != null && !user.getUserProperties().containsKey("keyboardType")){
 						user.getUserProperties().put("keyboardType", "QWERTY"); //ABC is the other option
-						user = Context.getUserService().saveUser(user, null);
+						user = Context.getUserService().saveUser(user);
 					}
 					session.setAttribute("keyboardType", user.getUserProperty("keyboardType"));
 					
@@ -81,7 +82,7 @@ public class PrimaryCareLoginController {
 									
 					// In case the user has no preferences, make sure that the context has some locale set
 					if (Context.getLocale() == null) {
-						Context.setLocale(OpenmrsConstants.GLOBAL_DEFAULT_LOCALE);
+						Context.setLocale(LocaleUtility.getDefaultLocale());
 					}
 					
 				}

@@ -34,10 +34,10 @@
 		</dependency>
 		<dependency>
 			<groupId>org.openmrs.module</groupId>
-			<artifactId>addresshierarchyrwanda-api</artifactId>
+			<artifactId>addresshierarchy-api</artifactId>
 			<type>jar</type>
 			<scope>provided</scope>
-			<version>${addresshierarchyrwandaVersion}</version>
+			<version>${addresshierarchyVersion}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.openmrs.module</groupId>

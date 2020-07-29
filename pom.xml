@@ -25,7 +25,7 @@
 	<properties>
 		<openMRSVersion>2.3.1</openMRSVersion>
 		<htmlformentryVersion>3.11.0</htmlformentryVersion>
-		<addresshierarchyrwandaVersion>1.2.9-SNAPSHOT</addresshierarchyrwandaVersion>
+		<addresshierarchyVersion>2.13.0</addresshierarchyVersion>
 		<idgenVersion>4.0</idgenVersion>
 		<namephoneticsVersion>1.5</namephoneticsVersion>
 		<mohappointmentVersion>0.3-SNAPSHOT</mohappointmentVersion>
@@ -77,8 +77,8 @@
 		</dependency>
 		<dependency>
 			<groupId>org.openmrs.module</groupId>
-			<artifactId>addresshierarchyrwanda-api</artifactId>
-			<version>${addresshierarchyrwandaVersion}</version>
+			<artifactId>addresshierarchy-api</artifactId>
+			<version>${addresshierarchyVersion}</version>
 			<type>jar</type>
 			<scope>provided</scope>
 		</dependency>

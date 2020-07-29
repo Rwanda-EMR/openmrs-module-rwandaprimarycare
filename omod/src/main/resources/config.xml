@@ -14,7 +14,7 @@
 	<require_version>1.9.11</require_version>
 	
 	<require_modules>
-		<require_module>org.openmrs.module.addresshierarchyrwanda</require_module>
+		<require_module>org.openmrs.module.addresshierarchy</require_module>
 		<require_module>org.openmrs.module.idgen</require_module>
 		<require_module>org.openmrs.module.namephonetics</require_module>
 		<require_module>org.openmrs.module.mohappointment</require_module>

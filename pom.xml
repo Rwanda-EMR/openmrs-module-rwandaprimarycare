@@ -11,11 +11,23 @@
 	<url>http://openmrs.org</url>
 
 	<scm>
-		<connection>scm:git:https://github.com/PIH/openmrs-module-rwandaprimarycare/</connection>
-		<developerConnection>scm:git:https://github.com/PIH/openmrs-module-rwandaprimarycare/</developerConnection>
-		<url>https://github.com/PIH/openmrs-module-rwandaprimarycare/</url>
+		<developerConnection>scm:git:https://github.com/Rwanda-EMR/openmrs-module-rwandaprimarycare</developerConnection>
+		<url>https://github.com/Rwanda-EMR/openmrs-module-rwandaprimarycare</url>
 		<tag>HEAD</tag>
 	</scm>
+
+	<distributionManagement>
+		<repository>
+			<id>openmrs-repo-modules-rwandaemr</id>
+			<name>rwandaemr-artifactory-primary-0-releases</name>
+			<url>https://rwandaemr.jfrog.io/artifactory/libs-release</url>
+		</repository>
+		<snapshotRepository>
+			<id>openmrs-repo-modules-rwandaemr-snapshots</id>
+			<name>rwandaemr-artifactory-primary-0-snapshots</name>
+			<url>https://rwandaemr.jfrog.io/artifactory/libs-snapshot</url>
+		</snapshotRepository>
+	</distributionManagement>
 
 	<modules>
 		<module>api</module>
@@ -113,19 +125,6 @@
 		</dependency>
 
 	</dependencies>
-
-	<distributionManagement>
-		<repository>
-			<id>openmrs-repo-modules</id>
-			<name>OpenMRS Modules</name>
-			<url>http://mavenrepo.openmrs.org/nexus/content/repositories/modules</url>
-		</repository>
-		<snapshotRepository>
-			<id>openmrs-repo-snapshots</id>
-			<name>OpenMRS Snapshots</name>
-			<url>http://mavenrepo.openmrs.org/nexus/content/repositories/snapshots</url>
-		</snapshotRepository>
-	</distributionManagement>
 
 	<build>
 		<resources>

@@ -19,28 +19,61 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.EncounterRole;
 import org.openmrs.EncounterType;
+import org.openmrs.GlobalProperty;
 import org.openmrs.Privilege;
 import org.openmrs.VisitType;
 import org.openmrs.api.APIException;
+import org.openmrs.api.AdministrationService;
 import org.openmrs.api.EncounterService;
 import org.openmrs.api.UserService;
 import org.openmrs.api.context.Context;
-import org.openmrs.module.BaseModuleActivator;
-import org.openmrs.util.PrivilegeConstants;
+import org.openmrs.module.Activator;
+import org.openmrs.util.OpenmrsConstants;
 
 /**
  * This class contains the logic that is run every time this module
  * is either started or shutdown
  */
-public class RwandaPrimaryCareActivator extends BaseModuleActivator implements Runnable {
+public class RwandaPrimaryCareActivator implements Activator, Runnable {
 
 	private Log log = LogFactory.getLog(this.getClass());
+        private AdministrationService administrationService;
 
 	/**
-	 * @see BaseModuleActivator#started()
+	 * @see org.openmrs.module.Activator#startup()
 	 */
-	public void started() {
-        log.info("Rwanda Primary Care Module started");
+	public void startup() {
+        log.info("Starting Rwanda Primary Care Module");
+        
+        
+        administrationService = Context.getAdministrationService();
+        GlobalProperty gp;
+        
+        String openhimNidaApi = administrationService.getGlobalProperty(PrimaryCareConstants.GLOBAL_PROPERTY_OPENHIM_NIDA_API);
+        if (openhimNidaApi == null || openhimNidaApi.isEmpty()) {
+                log.error("[error]------ Openhim to NIDA API is not defined on administration settings.");
+                gp = new GlobalProperty(PrimaryCareConstants.GLOBAL_PROPERTY_OPENHIM_NIDA_API, "http://openhim-core:5001/persons/");
+                gp.setDescription("OpenHIM to NIDA API (ex: http://openhim-core:5001/persons/)");
+                administrationService.saveGlobalProperty(gp);
+        }
+        
+        String openmrsUser = administrationService.getGlobalProperty(PrimaryCareConstants.GLOBAL_PROPERTY_OPENHIM_USER_NAME);
+        if (openmrsUser == null || openmrsUser.isEmpty()) {
+                log.error("[error]------ Openhim client ID is not defined on administration settings.");
+                gp = new GlobalProperty(PrimaryCareConstants.GLOBAL_PROPERTY_OPENHIM_USER_NAME, "openmrs");
+                gp.setDescription("OpenHIM client ID");
+                administrationService.saveGlobalProperty(gp);
+        }
+
+        String openmrsUserPwd = administrationService.getGlobalProperty(PrimaryCareConstants.GLOBAL_PROPERTY_OPENHIM_USER_PWD);
+        if (openmrsUserPwd == null || openmrsUserPwd.isEmpty()) {
+                log.error("[error]------ Openhim client Basic Auth Password is not defined on administration settings.");
+                gp = new GlobalProperty(PrimaryCareConstants.GLOBAL_PROPERTY_OPENHIM_USER_PWD, "saviors");
+                gp.setDescription("OpenHIM openmrs client Basic Auth Password");
+                administrationService.saveGlobalProperty(gp);
+        }
+        
+        
         Thread contextChecker = new Thread(this);
 	    contextChecker.start();
 	    contextChecker = null;
@@ -70,10 +103,10 @@ public class RwandaPrimaryCareActivator extends BaseModuleActivator implements R
 	            Thread.sleep(10000);
 	            // Start new OpenMRS session on this thread
 	            Context.openSession();
-	            Context.addProxyPrivilege(PrivilegeConstants.GET_ENCOUNTER_TYPES);
-	    	    Context.addProxyPrivilege(PrivilegeConstants.MANAGE_ENCOUNTER_TYPES);
-	    	    Context.addProxyPrivilege(PrivilegeConstants.MANAGE_PRIVILEGES);
-	    	    Context.addProxyPrivilege(PrivilegeConstants.GET_PRIVILEGES);
+	            Context.addProxyPrivilege(OpenmrsConstants.PRIV_VIEW_ENCOUNTER_TYPES);
+	    	    Context.addProxyPrivilege(OpenmrsConstants.PRIV_MANAGE_ENCOUNTER_TYPES);
+	    	    Context.addProxyPrivilege(OpenmrsConstants.PRIV_MANAGE_PRIVILEGES);
+	    	    Context.addProxyPrivilege(OpenmrsConstants.PRIV_VIEW_PRIVILEGES);
 	    	    Context.addProxyPrivilege("Manage Encounter Roles");
 	    	    Context.addProxyPrivilege("View Visit Types");
 	    	    Context.addProxyPrivilege("Manage Visit Types");
@@ -82,10 +115,10 @@ public class RwandaPrimaryCareActivator extends BaseModuleActivator implements R
 	            ex.printStackTrace();
 	            throw new RuntimeException("Could not pre-load rwanda primary care encounter types and privileges " + ex);
 	        } finally {
-		        Context.removeProxyPrivilege(PrivilegeConstants.GET_ENCOUNTER_TYPES);
-		        Context.removeProxyPrivilege(PrivilegeConstants.MANAGE_ENCOUNTER_TYPES);
-		        Context.removeProxyPrivilege(PrivilegeConstants.MANAGE_PRIVILEGES);
-		        Context.removeProxyPrivilege(PrivilegeConstants.GET_PRIVILEGES);
+		        Context.removeProxyPrivilege(OpenmrsConstants.PRIV_VIEW_ENCOUNTER_TYPES);
+		        Context.removeProxyPrivilege(OpenmrsConstants.PRIV_MANAGE_ENCOUNTER_TYPES);
+		        Context.removeProxyPrivilege(OpenmrsConstants.PRIV_MANAGE_PRIVILEGES);
+		        Context.removeProxyPrivilege(OpenmrsConstants.PRIV_VIEW_PRIVILEGES);
 		        Context.removeProxyPrivilege("Manage Encounter Roles");
 		        Context.removeProxyPrivilege("View Visit Types");
 		        Context.removeProxyPrivilege("Manage Visit Types");
@@ -97,10 +130,10 @@ public class RwandaPrimaryCareActivator extends BaseModuleActivator implements R
 	}
 	
 	/**
-	 * @see BaseModuleActivator#started()
+	 *  @see org.openmrs.module.Activator#shutdown()
 	 */
-	public void stopped() {
-		log.info("Rwanda Primary Care Module stopped");
+	public void shutdown() {
+		log.info("Shutting down Rwanda Primary Care Module");
 	}
 	
 	

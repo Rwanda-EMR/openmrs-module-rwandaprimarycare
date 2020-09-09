@@ -41,35 +41,35 @@ public class EditPatientController {
     	
     	//LK: Need to ensure that all primary care methods only throw a PrimaryCareException
     	//So that errors will be directed to a touch screen error page
-    	try{
-    		Patient patient = Context.getPatientService().getPatient(patientId);
-		
-    		map.addAttribute("patient", patient);   
-    		
-    		Calendar birthDate = Calendar.getInstance();
-    		birthDate.setTime(patient.getBirthdate());
-    		
-    		map.addAttribute("birthdateDay", birthDate.get(Calendar.DAY_OF_MONTH));
-    		map.addAttribute("birthdateMonth", birthDate.get(Calendar.MONTH)+1);
-    		map.addAttribute("birthdateYear", birthDate.get(Calendar.YEAR));
-    		
-    		Set<PersonAddress> addresses = patient.getAddresses();
-    		
-    		Iterator<PersonAddress> iter = addresses.iterator();
-    	    while (iter.hasNext()) {
-    	    	
-    	    	PersonAddress address = iter.next();
-    	    	if(address.isPreferred())
-    	    	{
-    	    		map.addAttribute("address", address);
-    	    	}
-    	    }
-    	    List<Person> parents = PrimaryCareBusinessLogic.getParents(Context.getPatientService().getPatient(patientId));
-    	    map.addAttribute("parents", parents);
-    	    //try to use attributes if we didn't find parents
-    	    if(parents.size() == 0)
-    	    PrimaryCareWebLogic.findParentsNamesAttributes(parents, patient, map);
-    	} catch(Exception e)
+    	try {
+			Patient patient = Context.getPatientService().getPatient(patientId);
+
+			map.addAttribute("patient", patient);
+
+			Calendar birthDate = Calendar.getInstance();
+			birthDate.setTime(patient.getBirthdate());
+
+			map.addAttribute("birthdateDay", birthDate.get(Calendar.DAY_OF_MONTH));
+			map.addAttribute("birthdateMonth", birthDate.get(Calendar.MONTH) + 1);
+			map.addAttribute("birthdateYear", birthDate.get(Calendar.YEAR));
+
+			Set<PersonAddress> addresses = patient.getAddresses();
+
+			Iterator<PersonAddress> iter = addresses.iterator();
+			while (iter.hasNext()) {
+
+				PersonAddress address = iter.next();
+				if (address.isPreferred()) {
+					map.addAttribute("address", address);
+				}
+			}
+			List<Person> parents = PrimaryCareBusinessLogic.getParents(Context.getPatientService().getPatient(patientId));
+			map.addAttribute("parents", parents);
+			//try to use attributes if we didn't find parents
+			if (parents.size() == 0)
+				PrimaryCareWebLogic.findParentsNamesAttributes(parents, patient, map);
+		}
+    	catch(Exception e)
         	{
         		throw new PrimaryCareException(e);
         	}  
@@ -94,6 +94,10 @@ public class EditPatientController {
             @RequestParam("UMUDUGUDU") String address1,
             @RequestParam("mothersName") String mothersName,
             @RequestParam("fathersName") String fathersName,
+			@RequestParam("educationLevel") String educationLevel,
+			@RequestParam("profession") String profession,
+			@RequestParam("religion") String religion,
+			@RequestParam("phoneNumber") String phoneNumber,
             HttpSession session) throws Exception  {
     	
     	//LK: Need to ensure that all primary care methods only throw a PrimaryCareException
@@ -127,7 +131,8 @@ public class EditPatientController {
 	    		
 	    		saveRequired = true;
 	    	}
-	    	
+
+
 	    	//Deal with the changing of the birthdate
 	    	Calendar birthDate = Calendar.getInstance();
 			birthDate.setTime(patient.getBirthdate());
@@ -188,7 +193,7 @@ public class EditPatientController {
 		    	}
 		    }
 	    	
-	    	if((address == null && !country.equals("")) || (address != null && ((address.getCountry() != null && !address.getCountry().equals(country)) || (address.getStateProvince() != null && !address.getStateProvince().equals(province)) || (address.getCountyDistrict() != null && !address.getCountyDistrict().equals(district)) || (address.getCityVillage() != null && !address.getCityVillage().equals(sector)) || (address.getNeighborhoodCell() != null && !address.getNeighborhoodCell().equals(cell)) || (address.getAddress1() != null && !address.getAddress1().equals(address1)))))
+	    	if((address == null && !country.equals("")) || (address != null && ((address.getCountry() != null && !address.getCountry().equals(country)) || (address.getStateProvince() != null && !address.getStateProvince().equals(province)) || (address.getCountyDistrict() != null && !address.getCountyDistrict().equals(district)) || (address.getCityVillage() != null && !address.getCityVillage().equals(sector)) || (address.getAddress3() != null && !address.getAddress3().equals(cell)) || (address.getAddress1() != null && !address.getAddress1().equals(address1)))))
 	    	{
 	    		if(address != null)
 	    		{
@@ -208,6 +213,7 @@ public class EditPatientController {
 	    	//deal with the parents names
 	    	Person mother = null;
 	    	Person father = null;
+
 	    	
 	    	List<Person> parents = PrimaryCareBusinessLogic.getParents(Context.getPatientService().getPatient(patientId));
 	    	//we only use this process if we have parents as persons in the database
@@ -264,7 +270,8 @@ public class EditPatientController {
 					
 					Context.getPersonService().savePerson(father);
 				}
-				
+
+
 				if (saveRequired) {
 					PrimaryCareBusinessLogic.preferredIdentifierSafeSavePatient(patient);
 				}
@@ -273,6 +280,7 @@ public class EditPatientController {
     		 if(parents.size() == 0 && PrimaryCareUtil.hasParentsNamesAttributes(patient)){
     		 patient.getAttribute(Context.getPersonService().getPersonAttributeTypeByName(PrimaryCareConstants.MOTHER_NAME_ATTRIBUTE_TYPE)).setValue(mothersName);
     		 patient.getAttribute(Context.getPersonService().getPersonAttributeTypeByName(PrimaryCareConstants.FATHER_NAME_ATTRIBUTE_TYPE)).setValue(fathersName);
+
     		 }
     		 else{
     				PrimaryCareUtil.setupParentNames(patient,mothersName,fathersName);
@@ -283,7 +291,7 @@ public class EditPatientController {
     	} catch(Exception e)
     	{
     		throw new PrimaryCareException(e);
-    	}  
+    	}
     }
     
     private Person setupParent(String parentsName, String gender){
@@ -357,7 +365,7 @@ public class EditPatientController {
 		newAddress.setStateProvince(province);
 		newAddress.setCountyDistrict(district);
 		newAddress.setCityVillage(sector);
-		newAddress.setNeighborhoodCell(cell);
+		newAddress.setAddress3(cell);
 		newAddress.setAddress1(umudugudu);
 		
 		//newAddress.setVoided(false);

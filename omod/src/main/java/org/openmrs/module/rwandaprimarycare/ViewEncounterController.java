@@ -1,7 +1,6 @@
 package org.openmrs.module.rwandaprimarycare;
 
 import org.openmrs.Encounter;
-import org.openmrs.Visit;
 import org.openmrs.api.context.Context;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -42,7 +41,7 @@ public class ViewEncounterController {
     	//So that errors will be directed to a touch screen error page
     	try{
 	    	Encounter encounter = Context.getEncounterService().getEncounter(encounterId);
-	        Integer patientId = encounter.getPatientId();
+	        Integer patientId = encounter.getPatient().getPatientId();
 	        Context.getEncounterService().voidEncounter(encounter, "N/A");
 	        //now check to see if we should void the visit as well.
 //	        if(encounter.getVisit() !=  null)

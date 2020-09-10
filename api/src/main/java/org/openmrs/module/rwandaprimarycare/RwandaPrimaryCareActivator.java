@@ -25,22 +25,22 @@ import org.openmrs.api.APIException;
 import org.openmrs.api.EncounterService;
 import org.openmrs.api.UserService;
 import org.openmrs.api.context.Context;
-import org.openmrs.module.Activator;
-import org.openmrs.util.OpenmrsConstants;
+import org.openmrs.module.BaseModuleActivator;
+import org.openmrs.util.PrivilegeConstants;
 
 /**
  * This class contains the logic that is run every time this module
  * is either started or shutdown
  */
-public class RwandaPrimaryCareActivator implements Activator, Runnable {
+public class RwandaPrimaryCareActivator extends BaseModuleActivator implements Runnable {
 
 	private Log log = LogFactory.getLog(this.getClass());
 
 	/**
-	 * @see org.openmrs.module.Activator#startup()
+	 * @see BaseModuleActivator#started()
 	 */
-	public void startup() {
-        log.info("Starting Rwanda Primary Care Module");
+	public void started() {
+        log.info("Rwanda Primary Care Module started");
         Thread contextChecker = new Thread(this);
 	    contextChecker.start();
 	    contextChecker = null;
@@ -70,25 +70,27 @@ public class RwandaPrimaryCareActivator implements Activator, Runnable {
 	            Thread.sleep(10000);
 	            // Start new OpenMRS session on this thread
 	            Context.openSession();
-	            Context.addProxyPrivilege(OpenmrsConstants.PRIV_VIEW_ENCOUNTER_TYPES);
-	    	    Context.addProxyPrivilege(OpenmrsConstants.PRIV_MANAGE_ENCOUNTER_TYPES);
-	    	    Context.addProxyPrivilege(OpenmrsConstants.PRIV_MANAGE_PRIVILEGES);
-	    	    Context.addProxyPrivilege(OpenmrsConstants.PRIV_VIEW_PRIVILEGES);
+	            Context.addProxyPrivilege(PrivilegeConstants.GET_ENCOUNTER_TYPES);
+	    	    Context.addProxyPrivilege(PrivilegeConstants.MANAGE_ENCOUNTER_TYPES);
+	    	    Context.addProxyPrivilege(PrivilegeConstants.MANAGE_PRIVILEGES);
+	    	    Context.addProxyPrivilege(PrivilegeConstants.GET_PRIVILEGES);
 	    	    Context.addProxyPrivilege("Manage Encounter Roles");
-	    	    Context.addProxyPrivilege("View Visit Types");
+	    	    Context.addProxyPrivilege("Get Visit Types");
 	    	    Context.addProxyPrivilege("Manage Visit Types");
+	    	    Context.addProxyPrivilege("Get Encounter Roles");
 	            addMetadata();
 	        } catch (Exception ex) {
 	            ex.printStackTrace();
 	            throw new RuntimeException("Could not pre-load rwanda primary care encounter types and privileges " + ex);
 	        } finally {
-		        Context.removeProxyPrivilege(OpenmrsConstants.PRIV_VIEW_ENCOUNTER_TYPES);
-		        Context.removeProxyPrivilege(OpenmrsConstants.PRIV_MANAGE_ENCOUNTER_TYPES);
-		        Context.removeProxyPrivilege(OpenmrsConstants.PRIV_MANAGE_PRIVILEGES);
-		        Context.removeProxyPrivilege(OpenmrsConstants.PRIV_VIEW_PRIVILEGES);
+		        Context.removeProxyPrivilege(PrivilegeConstants.GET_ENCOUNTER_TYPES);
+		        Context.removeProxyPrivilege(PrivilegeConstants.MANAGE_ENCOUNTER_TYPES);
+		        Context.removeProxyPrivilege(PrivilegeConstants.MANAGE_PRIVILEGES);
+		        Context.removeProxyPrivilege(PrivilegeConstants.GET_PRIVILEGES);
 		        Context.removeProxyPrivilege("Manage Encounter Roles");
-		        Context.removeProxyPrivilege("View Visit Types");
+		        Context.removeProxyPrivilege("Get Visit Types");
 		        Context.removeProxyPrivilege("Manage Visit Types");
+		        Context.removeProxyPrivilege("Get Encounter Roles");
 	            es = null;
 		        us = null;
 	            Context.closeSession();
@@ -97,10 +99,10 @@ public class RwandaPrimaryCareActivator implements Activator, Runnable {
 	}
 	
 	/**
-	 *  @see org.openmrs.module.Activator#shutdown()
+	 * @see BaseModuleActivator#started()
 	 */
-	public void shutdown() {
-		log.info("Shutting down Rwanda Primary Care Module");
+	public void stopped() {
+		log.info("Rwanda Primary Care Module stopped");
 	}
 	
 	

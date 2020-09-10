@@ -188,7 +188,7 @@ public class EditPatientController {
 		    	}
 		    }
 	    	
-	    	if((address == null && !country.equals("")) || (address != null && ((address.getCountry() != null && !address.getCountry().equals(country)) || (address.getStateProvince() != null && !address.getStateProvince().equals(province)) || (address.getCountyDistrict() != null && !address.getCountyDistrict().equals(district)) || (address.getCityVillage() != null && !address.getCityVillage().equals(sector)) || (address.getNeighborhoodCell() != null && !address.getNeighborhoodCell().equals(cell)) || (address.getAddress1() != null && !address.getAddress1().equals(address1)))))
+	    	if((address == null && !country.equals("")) || (address != null && ((address.getCountry() != null && !address.getCountry().equals(country)) || (address.getStateProvince() != null && !address.getStateProvince().equals(province)) || (address.getCountyDistrict() != null && !address.getCountyDistrict().equals(district)) || (address.getCityVillage() != null && !address.getCityVillage().equals(sector)) || (address.getAddress3() != null && !address.getAddress3().equals(cell)) || (address.getAddress1() != null && !address.getAddress1().equals(address1)))))
 	    	{
 	    		if(address != null)
 	    		{
@@ -357,7 +357,7 @@ public class EditPatientController {
 		newAddress.setStateProvince(province);
 		newAddress.setCountyDistrict(district);
 		newAddress.setCityVillage(sector);
-		newAddress.setNeighborhoodCell(cell);
+		newAddress.setAddress3(cell);
 		newAddress.setAddress1(umudugudu);
 		
 		//newAddress.setVoided(false);

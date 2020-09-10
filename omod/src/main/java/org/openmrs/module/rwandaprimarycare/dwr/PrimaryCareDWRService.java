@@ -7,8 +7,8 @@ import java.util.Map;
 import org.apache.commons.lang.StringUtils;
 import org.openmrs.api.context.Context;
 import org.openmrs.messagesource.MessageSourceService;
-import org.openmrs.module.addresshierarchyrwanda.AddressHierarchy;
-import org.openmrs.module.addresshierarchyrwanda.AddressHierarchyService;
+import org.openmrs.module.addresshierarchy.AddressHierarchyEntry;
+import org.openmrs.module.addresshierarchy.service.AddressHierarchyService;
 
 public class PrimaryCareDWRService {
 
@@ -18,17 +18,17 @@ public class PrimaryCareDWRService {
         if (Context.getAuthenticatedUser() != null && parentId != null && searchString != null && !searchString.equals("")){
             AddressHierarchyService ahs = Context.getService(AddressHierarchyService.class);
             if (parentId.intValue() == 0){
-                List<AddressHierarchy> topList = ahs.getTopOfHierarchyList();
-                for (AddressHierarchy ah : topList){
+                List<AddressHierarchyEntry> topList = ahs.getTopOfHierarchyList();
+                for (AddressHierarchyEntry ah : topList){
                     if (ah != null && ah.getLocationName().equals(searchString))
-                        return ah.getAddressHierarchyId();
+                        return ah.getAddressHierarchyEntryId();
                 }
             } else {
                 
-                    List<AddressHierarchy> childList = ahs.getNextComponent(parentId);
-                    for (AddressHierarchy ahTmp : childList){
+                    List<AddressHierarchyEntry> childList = ahs.getNextComponent(parentId);
+                    for (AddressHierarchyEntry ahTmp : childList){
                         if (ahTmp != null && ahTmp.getLocationName().equals(searchString))
-                            return ahTmp.getAddressHierarchyId();
+                            return ahTmp.getAddressHierarchyEntryId();
                     }
                     
                 

@@ -55,7 +55,7 @@ public class MyPropertiesController {
 				User user = Context.getAuthenticatedUser();
 				user.getUserProperties().put("keyboardType", keyboardType);
 				session.setAttribute("keyboardType", keyboardType);
-				Context.getUserService().saveUser(user, null);
+				Context.getUserService().saveUser(user);
 			}
 		} catch (Exception e) {
 			throw new PrimaryCareException(e);
@@ -73,7 +73,7 @@ public class MyPropertiesController {
 			Map<String, String> properties = user.getUserProperties();
 			properties.put(OpenmrsConstants.USER_PROPERTY_DEFAULT_LOCALE,
 					locale);
-			Context.getUserService().saveUser(user, null);
+			Context.getUserService().saveUser(user);
 			Context.setLocale(new Locale(locale));
 
 		} catch (Exception e) {

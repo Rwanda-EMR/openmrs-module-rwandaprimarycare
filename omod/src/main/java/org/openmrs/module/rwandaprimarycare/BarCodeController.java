@@ -82,7 +82,7 @@ public class BarCodeController {
 			Location originalLoc = PrimaryCareBusinessLogic.getLocationLoggedIn(request.getSession());
 			
 			//set volatile location
-			Context.setVolatileUserData(PrimaryCareConstants.VOLATILE_USER_DATA_LOGIN_LOCATION, loc);
+			 PrimaryCareUtil.setVolatileUserData(PrimaryCareConstants.VOLATILE_USER_DATA_LOGIN_LOCATION, loc);
 			
 			//get ids
 			List<String> idList = PrimaryCareBusinessLogic.getNewPrimaryIdentifiers(numIds);
@@ -94,7 +94,7 @@ public class BarCodeController {
 	        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 	        model.addAttribute("introLabelEPL",  "A35,15,0,3,1,1,N,\"Printed on " + sdf.format(new Date()) + " for " + loc.getName().toUpperCase() + "\"");
 	        
-	        Context.setVolatileUserData(PrimaryCareConstants.VOLATILE_USER_DATA_LOGIN_LOCATION, originalLoc);
+	        PrimaryCareUtil.setVolatileUserData(PrimaryCareConstants.VOLATILE_USER_DATA_LOGIN_LOCATION, originalLoc);
 			
     	} catch(Exception e)
     	{

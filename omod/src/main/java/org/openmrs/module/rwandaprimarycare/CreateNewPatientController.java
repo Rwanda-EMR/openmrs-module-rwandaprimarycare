@@ -279,7 +279,7 @@ public class CreateNewPatientController {
                 pa.setStateProvince(province);
                 pa.setCountyDistrict(district);
                 pa.setCityVillage(sector);
-                pa.setNeighborhoodCell(cell);
+                pa.setAddress3(cell);
                 pa.setAddress1(address1);
                 pa.setPreferred(true);
                 newPatient.addAddress(pa);

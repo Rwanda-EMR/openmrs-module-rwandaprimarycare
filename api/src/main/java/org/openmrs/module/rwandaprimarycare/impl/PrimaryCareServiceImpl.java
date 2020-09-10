@@ -8,8 +8,8 @@ import org.openmrs.Patient;
 import org.openmrs.PersonAttributeType;
 import org.openmrs.api.context.Context;
 import org.openmrs.api.impl.BaseOpenmrsService;
-import org.openmrs.module.addresshierarchyrwanda.AddressHierarchy;
-import org.openmrs.module.addresshierarchyrwanda.AddressHierarchyService;
+import org.openmrs.module.addresshierarchy.AddressHierarchyEntry;
+import org.openmrs.module.addresshierarchy.service.AddressHierarchyService;
 import org.openmrs.module.rwandaprimarycare.PrimaryCareBusinessLogic;
 import org.openmrs.module.rwandaprimarycare.PrimaryCareConstants;
 import org.openmrs.module.rwandaprimarycare.PrimaryCareService;
@@ -48,12 +48,12 @@ public class PrimaryCareServiceImpl extends BaseOpenmrsService implements Primar
     		PersonAttributeType fatherNameAttributeType = Context.getPersonService().getPersonAttributeTypeByName(PrimaryCareConstants.FATHER_NAME_ATTRIBUTE_TYPE);
     		results.addAll(dao.getParentsFamilyNamesList(search,fatherNameAttributeType.getPersonAttributeTypeId()));
     	} else if (searchType == PatientSearchType.COUNTRY){
-    	    List<AddressHierarchy> aList = ahs.getTopOfHierarchyList();
+    	    List<AddressHierarchyEntry> aList = ahs.getTopOfHierarchyList();
     	    if (aList != null && aList.size() > 0)
     	        results = new ArrayList<String>();
-    	    for (AddressHierarchy a : aList){
+    	    for (AddressHierarchyEntry a : aList){
     	        if (a != null && (a.getLocationName().toLowerCase().contains(search.toLowerCase()) || search.equals("")))
-    	            results.add(a.getAddressHierarchyId() + "|" + a.getLocationName());   
+    	            results.add(a.getAddressHierarchyEntryId() + "|" + a.getLocationName());   
     	    }
     	} else if (searchType == PatientSearchType.PROVINCE){
     	    results = addressHierarchyListtoStringList(ahs.getNextComponent(previousId), search);
@@ -132,12 +132,12 @@ public class PrimaryCareServiceImpl extends BaseOpenmrsService implements Primar
     }
     
     //TODO:   fill in cells of the hierarchy based on umudugudu??
-    private List<String> addressHierarchyListtoStringList(List<AddressHierarchy> ahList, String search){
+    private List<String> addressHierarchyListtoStringList(List<AddressHierarchyEntry> ahList, String search){
             List<String> stList = new ArrayList<String>();
-            for (AddressHierarchy ah : ahList){
+            for (AddressHierarchyEntry ah : ahList){
                 if (ah != null && ah.getLocationName() != null && (search.equals("") || ah.getLocationName().toLowerCase().contains(search.toLowerCase()))){
                     //we need to parse out address hierarchy ID before display, and set as javascript var on page.
-                    stList.add(ah.getAddressHierarchyId()+ "|" + ah.getLocationName());
+                    stList.add(ah.getAddressHierarchyEntryId()+ "|" + ah.getLocationName());
                 }    
             }
             if (stList.size() == 0)

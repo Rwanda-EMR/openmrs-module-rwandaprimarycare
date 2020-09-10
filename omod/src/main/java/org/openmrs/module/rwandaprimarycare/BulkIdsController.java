@@ -30,7 +30,7 @@ public class BulkIdsController {
 				Location originalLoc = PrimaryCareBusinessLogic.getLocationLoggedIn(request.getSession());
 				
 				//set volatile location
-				Context.setVolatileUserData(PrimaryCareConstants.VOLATILE_USER_DATA_LOGIN_LOCATION, loc);
+				 PrimaryCareUtil.setVolatileUserData(PrimaryCareConstants.VOLATILE_USER_DATA_LOGIN_LOCATION, loc);
 				
 				//get ids
 				List<String> idList = PrimaryCareBusinessLogic.getNewPrimaryIdentifiers(numIds);
@@ -40,7 +40,7 @@ public class BulkIdsController {
 				}
 				
 				//reset user location
-				Context.setVolatileUserData(PrimaryCareConstants.VOLATILE_USER_DATA_LOGIN_LOCATION, originalLoc);
+				PrimaryCareUtil.setVolatileUserData(PrimaryCareConstants.VOLATILE_USER_DATA_LOGIN_LOCATION, originalLoc);
 			    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 			    response.setContentType("text/comma-separated-values");
 			    response.setHeader("Content-Disposition","attachment; filename=\"idExport_"+ loc.getName() + "_" + sdf.format(new Date()) + ".csv\"");

@@ -75,8 +75,9 @@ public class RwandaPrimaryCareActivator extends BaseModuleActivator implements R
 	    	    Context.addProxyPrivilege(PrivilegeConstants.MANAGE_PRIVILEGES);
 	    	    Context.addProxyPrivilege(PrivilegeConstants.GET_PRIVILEGES);
 	    	    Context.addProxyPrivilege("Manage Encounter Roles");
-	    	    Context.addProxyPrivilege("View Visit Types");
+	    	    Context.addProxyPrivilege("Get Visit Types");
 	    	    Context.addProxyPrivilege("Manage Visit Types");
+	    	    Context.addProxyPrivilege("Get Encounter Roles");
 	            addMetadata();
 	        } catch (Exception ex) {
 	            ex.printStackTrace();
@@ -87,8 +88,9 @@ public class RwandaPrimaryCareActivator extends BaseModuleActivator implements R
 		        Context.removeProxyPrivilege(PrivilegeConstants.MANAGE_PRIVILEGES);
 		        Context.removeProxyPrivilege(PrivilegeConstants.GET_PRIVILEGES);
 		        Context.removeProxyPrivilege("Manage Encounter Roles");
-		        Context.removeProxyPrivilege("View Visit Types");
+		        Context.removeProxyPrivilege("Get Visit Types");
 		        Context.removeProxyPrivilege("Manage Visit Types");
+		        Context.removeProxyPrivilege("Get Encounter Roles");
 	            es = null;
 		        us = null;
 	            Context.closeSession();

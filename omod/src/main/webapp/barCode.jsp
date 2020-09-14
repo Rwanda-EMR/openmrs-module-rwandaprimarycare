@@ -24,7 +24,7 @@ A375,10,0,3,1,1,N,"(${locationName})"
 A250,80,0,3,1,1,N,"${patient.personName.familyName} ${patient.personName.givenName}"
 A250,104,0,3,1,1,N,"<openmrs:formatDate date="${patient.birthdate}"/> ${patient.gender}"
 A250,128,0,3,1,1,N,"${patient.personAddress.countyDistrict} ${patient.personAddress.cityVillage}"
-A250,152,0,3,1,1,N,"${patient.personAddress.neighborhoodCell} ${patient.personAddress.address1}"
+A250,152,0,3,1,1,N,"${patient.personAddress.address3} ${patient.personAddress.address1}"
 P1
 
 </c:forEach>

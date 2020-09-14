@@ -84,7 +84,7 @@
 		</tr>
 		<tr>
 			<td>Current Cell</td>
-			<td><touchscreen:textInput required="false" label="${CellStr}" field_name="CELL" value="${address.neighborhoodCell}" allowFreeText="true" ajaxURL="editPatientAddressAjax.form?searchType=CELL&search=" javascriptAction="updateAddressHierarchyCache()"/></td>
+			<td><touchscreen:textInput required="false" label="${CellStr}" field_name="CELL" value="${address.address3}" allowFreeText="true" ajaxURL="editPatientAddressAjax.form?searchType=CELL&search=" javascriptAction="updateAddressHierarchyCache()"/></td>
 		</tr>
 		<tr>
 			<td>Current Umudugudu</td>

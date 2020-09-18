@@ -36,7 +36,7 @@
 				units="${concept.units}"
 			</c:if>
 			<c:choose>
-				<c:when test="${concept.precise}">
+				<c:when test="${concept.allowDecimal}">
 					tt_pageStyleClass="Numeric NumbersOnlyWithDecimal"
 				</c:when>
 				<c:otherwise>

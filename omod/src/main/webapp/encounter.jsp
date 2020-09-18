@@ -17,7 +17,12 @@
 	<span class="bigtext">${encounter.encounterType.name}</span> <spring:message code="rwandaprimarycare.touchscreen.encounter"/>
 	<spring:message code="rwandaprimarycare.touchscreen.on"/> <span class="bigtext"><openmrs:formatDate date="${encounter.encounterDatetime}"/></span>
 	<spring:message code="rwandaprimarycare.touchscreen.at"/> <span class="bigtext">${encounter.location.name}</span>
-	<spring:message code="rwandaprimarycare.touchscreen.by"/> <span class="bigtext">${encounter.provider.personName}</span>
+	<spring:message code="rwandaprimarycare.touchscreen.by"/> 
+	<span class="bigtext">
+			<c:forEach var="encounterProvider" items="${encounter.encounterProviders}">
+				<span>${encounterProvider.provider.person.names}</span>
+		</c:forEach>
+	</span>
 </div>
 
 <c:if test="${encounter.voided}">

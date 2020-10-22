@@ -222,24 +222,15 @@ public class PrimaryCareBusinessLogic {
      * @return
      */
     public static EncounterType getRegistrationEncounterType() {
-    	if (PrimaryCareConstants.ENCOUNTER_TYPE_REGISTRATION == null)
-    		throw new RuntimeException("Registration Encounter Type is null");
-    	return PrimaryCareConstants.ENCOUNTER_TYPE_REGISTRATION;
-        //return Context.getEncounterService().getEncounterType("Registration");
+        return Context.getEncounterService().getEncounterType("Registration");
     }
 
     public static EncounterType getVitalsEncounterType() {
-    	if (PrimaryCareConstants.ENCOUNTER_TYPE_REGISTRATION == null)
-    		throw new RuntimeException("Vitals Encounter Type is null");
-    	return PrimaryCareConstants.ENCOUNTER_TYPE_VITALS;
-        //return Context.getEncounterService().getEncounterType("Registration");
+        return Context.getEncounterService().getEncounterType("Vitals");
     }
     
     public static VisitType getOutpatientVisitType() {
-    	if (PrimaryCareConstants.ENCOUNTER_TYPE_REGISTRATION == null)
-    		throw new RuntimeException("Primary Care Visit Type is null");
-    	return PrimaryCareConstants.VISIT_TYPE_OUTPATIENT;
-        //return Context.getEncounterService().getEncounterType("Registration");
+        return Context.getVisitService().getVisitTypeByUuid("3515b588-b1df-4110-991b-0d603686d8e6");
     }
 
 

@@ -853,9 +853,8 @@ public class PrimaryCareBusinessLogic {
 			v.setPatient(e.getPatient());
 			v.setVisitType(getOutpatientVisitType());
 			v.setVoided(false);
-			//I don't know if encounter needs to be saved before visit is created, so...
+			//Visit will be saved when the encounter is save (for the Sync purposes)
 			v.setEncounters(Collections.singleton(e));
-			v = Context.getVisitService().saveVisit(v);
 			e.setVisit(v);
 		} else {
 			//try to find existing visit

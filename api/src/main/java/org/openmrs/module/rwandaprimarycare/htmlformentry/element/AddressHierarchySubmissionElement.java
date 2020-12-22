@@ -200,52 +200,41 @@ public class AddressHierarchySubmissionElement implements HtmlGeneratorElement,
 	 */
 	private boolean currentAddressEqualsNewAddress(FormEntryContext context, HttpServletRequest request,
 	                                               PersonAddress currentAddress) {
-		
-		boolean equals = true;
+
 		if (currentAddress == null) {
 			return false;
 		}
+		boolean equals = true;
 	    for (Widget widget: addressWidgetList) {
 			AddressHierarchyWidget addressWidget =(AddressHierarchyWidget)widget;
 			if (addressWidget.getType().equals(AddressHierarchyWidget.TYPE_COUNTRY)) {
-				if (currentAddress.getCountry()!=null && !currentAddress.getCountry().trim().equalsIgnoreCase(request.getParameter(context.getFieldName(addressWidget)).trim())) {
-					equals = false;
-					break;
-				}
+				equals = equals && addressMatches(currentAddress.getCountry(), addressWidget, context, request);
 			}
 			if (addressWidget.getType().equals(AddressHierarchyWidget.TYPE_PROVINCE)) {
-				if (currentAddress.getStateProvince()!=null && !currentAddress.getStateProvince().trim().equalsIgnoreCase(request.getParameter(context.getFieldName(addressWidget)).trim())) {
-					equals = false;
-					break;
-				}
+				equals = equals && addressMatches(currentAddress.getStateProvince(), addressWidget, context, request);
 			}
 			if (addressWidget.getType().equals(AddressHierarchyWidget.TYPE_DISTRICT)) {
-				if (currentAddress.getCountyDistrict()!=null && !currentAddress.getCountyDistrict().trim().equalsIgnoreCase(request.getParameter(context.getFieldName(addressWidget)).trim())) {
-					equals = false;
-					break;
-				}
+				equals = equals && addressMatches(currentAddress.getCountyDistrict(), addressWidget, context, request);
 			}
 			if (addressWidget.getType().equals(AddressHierarchyWidget.TYPE_SECTOR)) {
-				if (currentAddress.getCityVillage()!=null && !currentAddress.getCityVillage().trim().equalsIgnoreCase(request.getParameter(context.getFieldName(addressWidget)).trim())) {
-					equals = false;
-					break;
-				}
+				equals = equals && addressMatches(currentAddress.getCityVillage(), addressWidget, context, request);
 			}
 			if (addressWidget.getType().equals(AddressHierarchyWidget.TYPE_CELL)) {
-				if (currentAddress.getAddress3()!=null && !currentAddress.getAddress3().trim().equalsIgnoreCase(request.getParameter(context.getFieldName(addressWidget)).trim())) {
-					equals = false;
-					break;
-				}
+				equals = equals && addressMatches(currentAddress.getAddress3(), addressWidget, context, request);
 			}
 			if (addressWidget.getType().equals(AddressHierarchyWidget.TYPE_UMUDUGUDU)) {
-				if (currentAddress.getAddress1()!=null && !currentAddress.getAddress1().trim().equalsIgnoreCase(request.getParameter(context.getFieldName(addressWidget)).trim())) {
-					equals = false;
-					break;
-				}
+				equals = equals && addressMatches(currentAddress.getAddress1(), addressWidget, context, request);
 			}
         }
 		
 	    return equals;
+    }
+
+    protected boolean addressMatches(String oldVal, Widget widget, FormEntryContext context, HttpServletRequest request) {
+		String newVal = request.getParameter(context.getFieldName(widget));
+	    oldVal = (oldVal == null ? "" : oldVal.trim());
+	    newVal = (newVal == null ? "" : newVal.trim());
+		return newVal.equalsIgnoreCase(oldVal);
     }
 	
 	protected void registerWidgetList(List<Widget> widgetList, FormEntryContext context) {

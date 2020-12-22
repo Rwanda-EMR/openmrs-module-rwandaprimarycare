@@ -15,6 +15,13 @@
 	<dependencies>
 		<dependency>
 			<groupId>org.openmrs.module</groupId>
+			<artifactId>htmlformentry-api</artifactId>
+			<type>jar</type>
+			<scope>provided</scope>
+			<version>${htmlformentryVersion}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.openmrs.module</groupId>
 			<artifactId>idgen-api</artifactId>
 			<type>jar</type>
 			<scope>provided</scope>

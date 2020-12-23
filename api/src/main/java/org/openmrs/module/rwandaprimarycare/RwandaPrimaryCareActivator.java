@@ -21,81 +21,31 @@ import org.openmrs.EncounterRole;
 import org.openmrs.EncounterType;
 import org.openmrs.Privilege;
 import org.openmrs.VisitType;
-import org.openmrs.api.APIException;
-import org.openmrs.api.EncounterService;
-import org.openmrs.api.UserService;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.BaseModuleActivator;
-import org.openmrs.util.PrivilegeConstants;
+import org.openmrs.module.htmlformentry.HtmlFormEntryService;
+import org.openmrs.module.rwandaprimarycare.htmlformentry.handler.AddressHierarchyTagHandler;
 
 /**
  * This class contains the logic that is run every time this module
  * is either started or shutdown
  */
-public class RwandaPrimaryCareActivator extends BaseModuleActivator implements Runnable {
+public class RwandaPrimaryCareActivator extends BaseModuleActivator {
 
-	private Log log = LogFactory.getLog(this.getClass());
+	private final Log log = LogFactory.getLog(this.getClass());
 
 	/**
 	 * @see BaseModuleActivator#started()
 	 */
 	public void started() {
         log.info("Rwanda Primary Care Module started");
-        Thread contextChecker = new Thread(this);
-	    contextChecker.start();
-	    contextChecker = null;
-	}
-	
-	public final void run(){
-	    
-	       EncounterService es = null;
-	       UserService us = null;
-	       try {
-	            while (es == null || us == null) {
-	                Thread.sleep(30000);
-	                	if (RwandaPrimaryCareContextAware.getApplicationContext() != null){
-		                    try {
-		                        log.warn("RwandaPrimaryCare still waiting for app context and services to load...");
-		                        es = Context.getEncounterService();
-		                        us = Context.getUserService();
-		                    } catch (APIException apiEx){
-		                    	apiEx.printStackTrace();
-		                    }
-	                	}   
-	            }
-	        } catch (InterruptedException ex) {
-	        	ex.printStackTrace();
-	        }
-	        try {
-	            Thread.sleep(10000);
-	            // Start new OpenMRS session on this thread
-	            Context.openSession();
-	            Context.addProxyPrivilege(PrivilegeConstants.GET_ENCOUNTER_TYPES);
-	    	    Context.addProxyPrivilege(PrivilegeConstants.MANAGE_ENCOUNTER_TYPES);
-	    	    Context.addProxyPrivilege(PrivilegeConstants.MANAGE_PRIVILEGES);
-	    	    Context.addProxyPrivilege(PrivilegeConstants.GET_PRIVILEGES);
-	    	    Context.addProxyPrivilege("Manage Encounter Roles");
-	    	    Context.addProxyPrivilege("Get Visit Types");
-	    	    Context.addProxyPrivilege("Manage Visit Types");
-	    	    Context.addProxyPrivilege("Get Encounter Roles");
-	            addMetadata();
-	        } catch (Exception ex) {
-	            ex.printStackTrace();
-	            throw new RuntimeException("Could not pre-load rwanda primary care encounter types and privileges " + ex);
-	        } finally {
-		        Context.removeProxyPrivilege(PrivilegeConstants.GET_ENCOUNTER_TYPES);
-		        Context.removeProxyPrivilege(PrivilegeConstants.MANAGE_ENCOUNTER_TYPES);
-		        Context.removeProxyPrivilege(PrivilegeConstants.MANAGE_PRIVILEGES);
-		        Context.removeProxyPrivilege(PrivilegeConstants.GET_PRIVILEGES);
-		        Context.removeProxyPrivilege("Manage Encounter Roles");
-		        Context.removeProxyPrivilege("Get Visit Types");
-		        Context.removeProxyPrivilege("Manage Visit Types");
-		        Context.removeProxyPrivilege("Get Encounter Roles");
-	            es = null;
-		        us = null;
-	            Context.closeSession();
-	            log.info("RwandaPrimaryCare loaded  metadata successfully.");
-	        }   
+
+        log.info("Registering tag with htmlformentry");
+        HtmlFormEntryService hfes = Context.getService(HtmlFormEntryService.class);
+		hfes.addHandler("addressHierarchyRwanda", new AddressHierarchyTagHandler());
+
+		log.info("Registering required metadata");
+		addMetadata();
 	}
 	
 	/**
@@ -105,9 +55,7 @@ public class RwandaPrimaryCareActivator extends BaseModuleActivator implements R
 		log.info("Rwanda Primary Care Module stopped");
 	}
 	
-	
-	
-	
+
 	public void addMetadata(){
 		 {
      		EncounterType et = Context.getEncounterService().getEncounterType("Registration");
@@ -198,7 +146,5 @@ public class RwandaPrimaryCareActivator extends BaseModuleActivator implements R
              }
              PrimaryCareConstants.VISIT_TYPE_OUTPATIENT = vt;
          }
-         
 	}
-	
 }

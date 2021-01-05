@@ -44,7 +44,7 @@
                 <c:set var="orLeaveBlank"><spring:message code='rwandaprimarycare.touchscreen.orLeaveBlank' /></c:set>
                 <touchscreen:numberInput required="false" field_name="birthdateDayCreate" value="${param.birthdateDay}" label="${bDay} (${orLeaveBlank} ${param.age})" min="1" max="31"/>
                 <touchscreen:numberInput required="false" field_name="birthdateMonthCreate" value="${param.birthdateMonth}" label="${bMonth} (${orLeaveBlank} ${param.age})" min="1" max="12"/>
-                <touchscreen:numberInput required="false" field_name="birthdateYearCreate" value="${param.birthdateYear}" label="${bYear} (${orLeaveBlank} ${param.age})" min="1910" max="2020"/>
+                <touchscreen:numberInput required="false" field_name="birthdateYearCreate" value="${param.birthdateYear}" label="${bYear} (${orLeaveBlank} ${param.age})" min="1910" max="2050"/>
             </Td>
         </tr>
 

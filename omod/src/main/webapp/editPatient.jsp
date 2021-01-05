@@ -53,7 +53,7 @@
 				<c:set var="orLeaveBlank"><spring:message code='rwandaprimarycare.touchscreen.orLeaveBlank' /></c:set>
 				<touchscreen:numberInput required="false" field_name="birthdateDay" value="${birthdateDay}" label="${bDay} (${orLeaveBlank} ${patient.age})" min="1" max="31"/>
 				<touchscreen:numberInput required="false" field_name="birthdateMonth" value="${birthdateMonth}" label="${bMonth} (${orLeaveBlank} ${patient.age})" min="1" max="12"/>
-				<touchscreen:numberInput required="false" field_name="birthdateYear" value="${birthdateYear}" label="${bYear} (${orLeaveBlank} ${patient.age})" min="1910" max="2020"/>
+				<touchscreen:numberInput required="false" field_name="birthdateYear" value="${birthdateYear}" label="${bYear} (${orLeaveBlank} ${patient.age})" min="1910" max="2050"/>
 			</Td>
 		</tr>
 

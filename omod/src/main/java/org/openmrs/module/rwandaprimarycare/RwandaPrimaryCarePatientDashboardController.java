@@ -23,6 +23,9 @@ import org.openmrs.Person;
 import org.openmrs.PersonAttribute;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.mohappointment.utils.AppointmentUtil;
+import org.openmrs.module.mohbilling.businesslogic.InsurancePolicyUtil;
+import org.openmrs.module.mohbilling.model.Insurance;
+import org.openmrs.module.mohbilling.model.InsurancePolicy;
 import org.openmrs.parameter.EncounterSearchCriteria;
 import org.openmrs.parameter.EncounterSearchCriteriaBuilder;
 import org.openmrs.util.OpenmrsUtil;
@@ -210,14 +213,27 @@ public class RwandaPrimaryCarePatientDashboardController {
 	            }
 	        }
 	        
-	        if (gatherInsurance != null && gatherInsurance.equals(0)){
+	        if (gatherInsurance != null && gatherInsurance==0){
 	            
 	            model.addAttribute("mostRecentType", PrimaryCareBusinessLogic.getLastInsuranceType(patient));
-	            model.addAttribute("mostRecentInsuranceNumber", PrimaryCareBusinessLogic.getLastInsuranceNumber(patient));
-	            model.addAttribute("insuranceTypes", PrimaryCareBusinessLogic.getInsuranceTypeAnswers());
-	            
-	            return "/module/rwandaprimarycare/insuranceInformation";
-	        }    
+	           // model.addAttribute("mostRecentInsuranceNumber", PrimaryCareBusinessLogic.getLastInsuranceNumber(patient));
+	            //model.addAttribute("insuranceTypes", PrimaryCareBusinessLogic.getInsuranceTypeAnswers());
+
+				List<InsurancePolicy> insurancePolicies= InsurancePolicyUtil.getInsurancePoliciesByPatient(patient);
+				List<InsurancePolicy> validInsurancePolicies= new ArrayList<InsurancePolicy>();
+				List<Concept> patientInsuranceConcepts=new ArrayList<Concept>();
+				for (InsurancePolicy insurancePolicy:insurancePolicies) {
+                    System.out.println("Insurance Policyyyyyyy: "+insurancePolicy.getInsuranceCardNo());
+					if (insurancePolicy.getExpirationDate().after(new Date())){
+						patientInsuranceConcepts.add(insurancePolicy.getInsurance().getConcept());
+						validInsurancePolicies.add(insurancePolicy);
+					}
+				}
+
+				model.addAttribute("patientInsuranceTypes", patientInsuranceConcepts);
+				model.addAttribute("mostRecentInsuranceNumber", validInsurancePolicies);
+	           return "/module/rwandaprimarycare/insuranceInformation";
+	        }
 	
 	        if (insuranceType != null && registrationEncounterToday != null){
 	            	//for edit, just void

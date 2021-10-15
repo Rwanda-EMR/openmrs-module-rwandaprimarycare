@@ -73,6 +73,10 @@
         <c:param name="age" value="${param.AGE}"/>
         <c:param name="mothersName" value="${param.MRWNAME}"/>
         <c:param name="fathersName" value="${param.FATHERSRWNAME}"/>
+        <c:param name="educationLevel" value="${param.EDLEV}"/>
+        <c:param name="profession" value="${param.PROF}"/>
+        <c:param name="religion" value="${param.RELIG}"/>
+        <c:param name="phoneNumber" value="${param.PHNUM}"/>
         <c:param name="country" value="${param.COUNTRY}"/>
         <c:param name="province" value="${param.PROVINCE}"/>
         <c:param name="district" value="${param.DISTRICT}"/>

@@ -54,6 +54,11 @@ public class PrimaryCareConstants {
     public static final String GLOBAL_PROPERTY_OPENHIM_NIDA_API = "primaryCare.openhim.nida.api";
     public static final String GLOBAL_PROPERTY_OPENHIM_USER_NAME = "posttoopenhim.openhim.client.user";
     public static final String GLOBAL_PROPERTY_OPENHIM_USER_PWD = "posttoopenhim.openhim.client.pwd";
+
+    public static final String GLOBAL_PROPERTY_EDUCATION_LEVEL_CONCEPT = "Education Level";
+    public static final String GLOBAL_PROPERTY_PROFESSION_CONCEPT = "Profession";
+    public static final String GLOBAL_PROPERTY_RELIGION_CONCEPT = "Religion";
+    public static final String GLOBAL_PROPERTY_PHONE_NUMBER_CONCEPT = "Phone Number";
    
     
 }

@@ -126,6 +126,51 @@ public class PrimaryCareUtil {
 		return ret;
 	}
 
+
+	public static Concept getEducationLevelConcept(){
+		Concept ret = null;
+		String st = Context.getAdministrationService().getGlobalProperty(PrimaryCareConstants.GLOBAL_PROPERTY_EDUCATION_LEVEL_CONCEPT);
+		if (st != null && !st.equals("")){
+			try {
+				ret = Context.getConceptService().getConcept(Integer.valueOf(st));
+			} catch (Exception ex){log.info("Unable to load concept for education level.  Returning null");}
+		}
+		return ret;
+	}
+
+	public static Concept getProfessionConcept(){
+		Concept ret = null;
+		String st = Context.getAdministrationService().getGlobalProperty(PrimaryCareConstants.GLOBAL_PROPERTY_PROFESSION_CONCEPT);
+		if (st != null && !st.equals("")){
+			try {
+				ret = Context.getConceptService().getConcept(Integer.valueOf(st));
+			} catch (Exception ex){log.info("Unable to load concept for profession.  Returning null");}
+		}
+		return ret;
+	}
+
+	public static Concept getReligionConcept(){
+		Concept ret = null;
+		String st = Context.getAdministrationService().getGlobalProperty(PrimaryCareConstants.GLOBAL_PROPERTY_RELIGION_CONCEPT);
+		if (st != null && !st.equals("")){
+			try {
+				ret = Context.getConceptService().getConcept(Integer.valueOf(st));
+			} catch (Exception ex){log.info("Unable to load concept for religion.  Returning null");}
+		}
+		return ret;
+	}
+
+	public static Concept getPhoneNumberConcept(){
+		Concept ret = null;
+		String st = Context.getAdministrationService().getGlobalProperty(PrimaryCareConstants.GLOBAL_PROPERTY_PHONE_NUMBER_CONCEPT);
+		if (st != null && !st.equals("")){
+			try {
+				ret = Context.getConceptService().getConcept(Integer.valueOf(st));
+			} catch (Exception ex){log.info("Unable to load concept for Phone Number.  Returning null");}
+		}
+		return ret;
+	}
+
 	/**
 	 * 
 	 * Returns the patientIdentifierType to use for the national ID number

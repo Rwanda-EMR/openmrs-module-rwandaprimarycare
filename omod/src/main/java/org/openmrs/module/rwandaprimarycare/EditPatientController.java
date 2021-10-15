@@ -94,6 +94,10 @@ public class EditPatientController {
             @RequestParam("UMUDUGUDU") String address1,
             @RequestParam("mothersName") String mothersName,
             @RequestParam("fathersName") String fathersName,
+			@RequestParam("educationLevel") String educationLevel,
+			@RequestParam("profession") String profession,
+			@RequestParam("religion") String religion,
+			@RequestParam("phoneNumber") String phoneNumber,
             HttpSession session) throws Exception  {
     	
     	//LK: Need to ensure that all primary care methods only throw a PrimaryCareException

@@ -79,6 +79,20 @@
 					</c:forEach>
 				</th>
 			</tr>
+			<tr>
+                        	<td align="right"><spring:message code="rwandaprimarycare.touchscreen.educationLevel"/></td>
+                        	<th align="left">${patient.personName.educationLevel}</th>
+                        </tr>
+
+                        <tr>
+                           	<td align="right"><spring:message code="rwandaprimarycare.touchscreen.professionInfo"/></td>
+                           	<th align="left">${patient.personName.profession}</th>
+                        </tr>
+
+                        <tr>
+                            <td align="right"><spring:message code="rwandaprimarycare.touchscreen.religion"/></td>
+                            <th align="left">${patient.personName.religion}</th>
+                        </tr>
 			</c:if>
 			<tr>
 				<td align="right"><spring:message code="rwandaprimarycare.touchscreen.umudugudu"/></td>
@@ -92,3 +106,18 @@
 					</c:if>
 				</th>
 			</tr>
+			<tr><td colspan="2"><hr/></td></tr>
+			<tr>
+            	<td>
+Patient Dashboard:</td>
+<td> <a href="${pageContext.request.contextPath}/patientDashboard.form?patientId=${patient.patientId}" target="_blank"> <b>Click here</b></a><br>
+
+          	</td>
+            			</tr>
+
+            <tr>
+                            <td>
+                       New Insurance policy:</td>
+                                           <td> <a href="${pageContext.request.contextPath}/module/mohbilling/insurancePolicy.form?patientId=${patient.patientId}" target="_blank"> <b>Click here</b></a>
+                            </td>
+                                    </tr>

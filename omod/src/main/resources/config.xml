@@ -241,7 +241,21 @@
 			Concept id or UUID for Blood Oxygen Saturation.
 		</description>
 	</globalProperty>
+	<globalProperty>
+		<property>registration.concept.CLINICALIMPRESSIONCOMMENTS</property>
+		<defaultValue>3cd9d956-26fe-102b-80cb-0017a47871b2</defaultValue>
+		<description>
+			Concept id or UUID for CLINICAL IMPRESSION COMMENTS.
+		</description>
+	</globalProperty>
 
+	<globalProperty>
+		<property>registration.concept.TREATMENTPLANOTHER</property>
+		<defaultValue>3cda0160-26fe-102b-80cb-0017a47871b2</defaultValue>
+		<description>
+			Concept id or UUID for TREATMENT PLAN OTHER.
+		</description>
+	</globalProperty>
 
 
 

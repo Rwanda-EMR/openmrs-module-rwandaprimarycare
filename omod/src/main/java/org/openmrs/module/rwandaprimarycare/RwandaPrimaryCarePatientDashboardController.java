@@ -22,6 +22,7 @@ import org.openmrs.PatientIdentifierType;
 import org.openmrs.Person;
 import org.openmrs.PersonAttribute;
 import org.openmrs.api.context.Context;
+import org.openmrs.module.mohappointment.model.Services;
 import org.openmrs.module.mohappointment.utils.AppointmentUtil;
 import org.openmrs.module.mohbilling.businesslogic.InsurancePolicyUtil;
 import org.openmrs.module.mohbilling.model.Insurance;
@@ -178,7 +179,16 @@ public class RwandaPrimaryCarePatientDashboardController {
 	                for (ConceptAnswer ca : c.getAnswers()){
 	                    ca.getAnswerConcept().getNames();
 	                }
-	            model.addAttribute("servicesRequested", c);
+				List<Services> appointmentServices=AppointmentUtil.getAllServices();
+				List<Concept> conceptNamesOfAppointmentServices=new ArrayList<Concept>();
+
+				for (Services service:appointmentServices) {
+					if(service.getConcept()!=null){
+						conceptNamesOfAppointmentServices.add(service.getConcept());
+					}
+				}
+
+	            model.addAttribute("servicesRequested", conceptNamesOfAppointmentServices);
 	            return "/module/rwandaprimarycare/serviceRequested";            
 	        }   
 	        

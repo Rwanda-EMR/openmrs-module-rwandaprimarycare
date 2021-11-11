@@ -9,13 +9,13 @@
 	<div style="float: left; background-color: #f0f0a0; border: 1px black solid; padding: 10px">
 		<h1><spring:message code="rwandaprimarycare.touchscreen.whatService"/></h1>
 	    
-	    <c:forEach items="${servicesRequested.answers}" var="service">
+	    <c:forEach items="${servicesRequested}" var="service">
 			<c:choose>
 				<c:when test="${empty visitDate}">
-					<touchscreen:button label="${service.answerConcept.name}" href="patient.form?patientId=${patient.patientId}&serviceRequestResponse=${service.answerConcept.conceptId}&skipPresentQuestion=true&gatherInsurance=0" cssClass="green"/>
+					<touchscreen:button label="${service.name}" href="patient.form?patientId=${patient.patientId}&serviceRequestResponse=${service.conceptId}&skipPresentQuestion=true&gatherInsurance=0" cssClass="green"/>
 				</c:when>
 				<c:otherwise>
-					<touchscreen:button label="${service.answerConcept.name}" href="patient.form?patientId=${patient.patientId}&serviceRequestResponse=${service.answerConcept.conceptId}&skipPresentQuestion=true&gatherInsurance=0&visitDate=${visitDate}" cssClass="green"/>
+					<touchscreen:button label="${service.name}" href="patient.form?patientId=${patient.patientId}&serviceRequestResponse=${service.conceptId}&skipPresentQuestion=true&gatherInsurance=0&visitDate=${visitDate}" cssClass="green"/>
 				</c:otherwise>
 			</c:choose>	
 		</c:forEach>

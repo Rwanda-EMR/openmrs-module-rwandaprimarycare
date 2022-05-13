@@ -42,9 +42,9 @@
 		<addresshierarchyVersion>2.13.0</addresshierarchyVersion>
 		<idgenVersion>4.0</idgenVersion>
 		<namephoneticsVersion>1.5</namephoneticsVersion>
-		<mohappointmentVersion>2.0.0-SNAPSHOT</mohappointmentVersion>
+		<mohappointmentVersion>2.0.1-SNAPSHOT</mohappointmentVersion>
 		<!--<mohbillingVersion>0.0.4.7-SNAPSHOT</mohbillingVersion>-->
-		<mohbillingVersion>2.0.0-SNAPSHOT</mohbillingVersion>
+		<mohbillingVersion>2.0.1-SNAPSHOT</mohbillingVersion>
 	</properties>
 
 	<dependencies>

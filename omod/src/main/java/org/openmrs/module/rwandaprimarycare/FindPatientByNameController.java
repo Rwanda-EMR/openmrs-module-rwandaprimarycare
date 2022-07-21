@@ -16,10 +16,12 @@ import org.openmrs.Patient;
 import org.openmrs.Person;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.rwandaprimarycare.PrimaryCareService.PatientSearchType;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
@@ -30,7 +32,7 @@ public class FindPatientByNameController {
 
     protected final Log log = LogFactory.getLog(getClass());    
     
-    @RequestMapping("/module/rwandaprimarycare/findPatientByName")
+    @RequestMapping(value = "/module/rwandaprimarycare/findPatientByName", method = RequestMethod.GET)
     public String setupForm(
             @RequestParam(value="search", required=false) String search,
             @RequestParam(value="addIdentifier", required=false) String addIdentifier,
@@ -108,8 +110,8 @@ public class FindPatientByNameController {
 	//            		searchUMUDUGUDU,
 	//            		Context.getPersonService().getPersonAttributeTypeByName("Health Center"),
 	//            		PrimaryCareBusinessLogic.getLocationLoggedIn(request.getSession()));
-	            
-	            
+
+
 	            List<Patient> patients = PrimaryCareBusinessLogic.getPatientWithSoundex(searchFANAME, searchRWNAME, PrimaryCareBusinessLogic.getLocationLoggedIn(request.getSession()), searchUMUDUGUDU);
 
 	            if(patients.size()==0){
@@ -127,7 +129,7 @@ public class FindPatientByNameController {
         return "/module/rwandaprimarycare/findPatientByName";
     }
 
-    @RequestMapping("/module/rwandaprimarycare/findPatientByNameAjax")
+	@RequestMapping(value = "/module/rwandaprimarycare/findPatientByNameAjax", produces = MediaType.TEXT_HTML_VALUE)
     public String searchAjax(
     		@RequestParam(value="search", required=false) String search,
     		@RequestParam(value="searchType", required=false) String searchType, 

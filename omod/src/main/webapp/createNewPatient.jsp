@@ -92,22 +92,22 @@
         <tr>
                      <td>Education Level</td>
                             <c:set var="educationLevel"><spring:message code='rwandaprimarycare.touchscreen.educationLevel' /></c:set>
-                     <td><touchscreen:textInput required="true"  label="${educationLevel}" field_name="educationLevelCreate" value="${param.educationLevel}" allowFreeText="true" ajaxURL="findPatientByNameAjax.form?searchType=EDLEV&search=" fieldType="upper"/></td>
+                     <td><touchscreen:textInput required="false"  label="${educationLevel}" field_name="educationLevelCreate" value="${param.educationLevel}" allowFreeText="true" ajaxURL="findPatientByNameAjax.form?searchType=EDLEV&search=" fieldType="upper"/></td>
                </tr>
                <tr>
                      <td>Profession</td>
                             <c:set var="profession"><spring:message code='Profession' /></c:set>
-                     <td><touchscreen:textInput required="true"  label="${profession}" field_name="professionCreate" value="${param.profession}" allowFreeText="true" ajaxURL="findPatientByNameAjax.form?searchType=PROF&search=" fieldType="upper"/></td>
+                     <td><touchscreen:textInput required="false"  label="${profession}" field_name="professionCreate" value="${param.profession}" allowFreeText="true" ajaxURL="findPatientByNameAjax.form?searchType=PROF&search=" fieldType="upper"/></td>
                </tr>
                <tr>
                      <td>Religion</td>
                              <c:set var="religion"><spring:message code='Religion' /></c:set>
-                     <td><touchscreen:textInput required="true"  label="${religion}" field_name="religionCreate" value="${param.religion}" allowFreeText="true" ajaxURL="findPatientByNameAjax.form?searchType=RELIG&search=" fieldType="upper"/></td>
+                     <td><touchscreen:textInput required="false"  label="${religion}" field_name="religionCreate" value="${param.religion}" allowFreeText="true" ajaxURL="findPatientByNameAjax.form?searchType=RELIG&search=" fieldType="upper"/></td>
                </tr>
                <tr>
                      <td>Phone number</td>
                              <c:set var="phoneNumber"><spring:message code='Phone Number' /></c:set>
-                     <td><touchscreen:textInput required="true"  label="${phoneNumber}" field_name="phoneNumberCreate" value="${param.phoneNumber}" allowFreeText="true" ajaxURL="findPatientByNameAjax.form?searchType=PHNUM&search=" fieldType="upper"/></td>
+                     <td><touchscreen:textInput required="false"  label="${phoneNumber}" field_name="phoneNumberCreate" value="${param.phoneNumber}" allowFreeText="true" ajaxURL="findPatientByNameAjax.form?searchType=PHNUM&search=" fieldType="upper"/></td>
                </tr>
     </table>
     <input type="hidden" name="idSourceIdCreate" value="${idSource}"/>

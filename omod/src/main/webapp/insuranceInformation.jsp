@@ -1,9 +1,12 @@
 <%@ include file="/WEB-INF/template/include.jsp"%>
 <%@ include file="resources/touchscreenHeader.jsp"%>
 
-
+<openmrs:globalProperty var="skipInsuranceInfo" key="registration.skipInsuranceInformation"  />
 <form method="get">
-<table> 
+<table>
+
+<c:if test="${skipInsuranceInfo == 'false'}">
+
 	<tr><td></td>
 		<td>
 			
@@ -32,6 +35,7 @@
         		</td>
 
 	</tr>
+</c:if>
 	<tr>
 		<td></td>
 		<td>

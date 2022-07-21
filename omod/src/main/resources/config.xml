@@ -256,6 +256,13 @@
 			Concept id or UUID for TREATMENT PLAN OTHER.
 		</description>
 	</globalProperty>
+	<globalProperty>
+		<property>registration.skipInsuranceInformation</property>
+		<defaultValue>false</defaultValue>
+		<description>
+			This will allow health facility to skip recording insurance information on patient. value need to be true/false
+		</description>
+	</globalProperty>
 
 
 

@@ -1,10 +1,6 @@
 package org.openmrs.module.rwandaprimarycare;
 
 
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.Location;
@@ -19,6 +15,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 @Controller
 public class HomepageController {
 
@@ -29,11 +28,23 @@ public class HomepageController {
     	//LK: Need to ensure that all primary care methods only throw a PrimaryCareException
     	//So that errors will be directed to a touch screen error page
     	try{
-	    	if (!Context.isAuthenticated() || PrimaryCareBusinessLogic.getLocationLoggedIn(session) == null) {
+	    	if (!Context.isAuthenticated()) {
 	            return "redirect:/module/rwandaprimarycare/login/login.form";
 	        }
-	
-	        model.addAttribute("user", Context.getAuthenticatedUser());
+
+			User user = Context.getAuthenticatedUser();
+
+			if(user.getUserProperties() != null && !user.getUserProperties().containsKey("keyboardType")){
+				user.getUserProperties().put("keyboardType", "QWERTY"); //ABC is the other option
+				user = Context.getUserService().saveUser(user);
+			}
+			session.setAttribute("keyboardType", user.getUserProperty("keyboardType"));
+
+			if (PrimaryCareBusinessLogic.getLocationLoggedIn(session) == null) {
+				return "redirect:/module/rwandaprimarycare/chooseLocation.form";
+			}
+
+	        model.addAttribute("user", user);
 	        
 	        RecentlyViewedPatients recent = null;
 	        try {

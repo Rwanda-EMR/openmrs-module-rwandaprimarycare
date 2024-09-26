@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class BulkIdsController {
 
-		@RequestMapping("/module/rwandaprimarycare/bulkIds")
+		@RequestMapping("/module/rwandaprimarycare/bulkIds.form")
 		public void renderBarCode(
 	        @RequestParam(required=true, value="howManyIds") Integer numIds,
 	        @RequestParam(required=true, value="location") Integer locationId,

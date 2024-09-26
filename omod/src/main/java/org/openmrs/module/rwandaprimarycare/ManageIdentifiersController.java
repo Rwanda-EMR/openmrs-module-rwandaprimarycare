@@ -24,7 +24,7 @@ public class ManageIdentifiersController {
     
     protected final Log log = LogFactory.getLog(getClass());
     
-    @RequestMapping("/module/rwandaprimarycare/manageIdentifiers")
+    @RequestMapping("/module/rwandaprimarycare/manageIdentifiers.form")
     public void showAll(
             @RequestParam("patientId") int patientId,
             ModelMap model) throws PrimaryCareException {
@@ -41,7 +41,7 @@ public class ManageIdentifiersController {
     	} 
     }
     
-    @RequestMapping(value="/module/rwandaprimarycare/addIdentifier", method=RequestMethod.GET)
+    @RequestMapping(value="/module/rwandaprimarycare/addIdentifier.form", method=RequestMethod.GET)
     public void showAddForm(
             @RequestParam("patientId") int patientId,
             ModelMap model) throws PrimaryCareException {
@@ -56,7 +56,7 @@ public class ManageIdentifiersController {
     	} 
     }
     
-    @RequestMapping(value="/module/rwandaprimarycare/addIdentifier", method=RequestMethod.POST)
+    @RequestMapping(value="/module/rwandaprimarycare/addIdentifier.form", method=RequestMethod.POST)
     public String handleAddForm(
             HttpSession session,
             @RequestParam("patientId") int patientId,
@@ -84,7 +84,7 @@ public class ManageIdentifiersController {
     	} 
     }
     
-    @RequestMapping("/module/rwandaprimarycare/deleteIdentifier")
+    @RequestMapping("/module/rwandaprimarycare/deleteIdentifier.form")
     public String handleDelete(
             HttpSession session,
             @RequestParam("patientId") int patientId,

@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class AllEncountersController {
 
-    @RequestMapping("/module/rwandaprimarycare/allEncounters")
+    @RequestMapping("/module/rwandaprimarycare/allEncounters.form")
     public String listAllEncounters(@RequestParam("patientId") int patientId, ModelMap model) throws PrimaryCareException {
     	
     	//LK: Need to ensure that all primary care methods only throw a PrimaryCareException

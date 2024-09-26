@@ -23,7 +23,7 @@ public class HomepageController {
 
     protected static final Log log = LogFactory.getLog(HomepageController.class);
     
-    @RequestMapping("/module/rwandaprimarycare/homepage")
+    @RequestMapping("/module/rwandaprimarycare/homepage.form")
     public String showHomepage(ModelMap model, HttpSession session) throws PrimaryCareException {
     	//LK: Need to ensure that all primary care methods only throw a PrimaryCareException
     	//So that errors will be directed to a touch screen error page
@@ -85,7 +85,7 @@ public class HomepageController {
     }
     
     
-    @RequestMapping("/module/rwandaprimarycare/chooseLocation")
+    @RequestMapping("/module/rwandaprimarycare/chooseLocation.form")
     public String showGetLocation(ModelMap model, HttpSession session, HttpServletRequest request) throws PrimaryCareException {
     	//LK: Need to ensure that all primary care methods only throw a PrimaryCareException
     	//So that errors will be directed to a touch screen error page

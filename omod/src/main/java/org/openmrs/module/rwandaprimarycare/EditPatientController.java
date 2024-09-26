@@ -29,7 +29,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 //TODO: Check with Dave this approach as the extra submit
 //may be creating unneccessary latency
 @Controller
-@RequestMapping("/module/rwandaprimarycare/editPatient.form")
+@RequestMapping("/module/rwandaprimarycare/editPatient.form.form")
 public class EditPatientController {
 
     protected final Log log = LogFactory.getLog(getClass());

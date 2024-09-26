@@ -29,7 +29,7 @@ public class FindUserFromNIDAByIdController {
 
     final static int MAX_RESULTS = 10;
 
-    @RequestMapping("/module/rwandaprimarycare/findUserFromNIDAById")
+    @RequestMapping("/module/rwandaprimarycare/findUserFromNIDAById.form")
     public String setupForm(@RequestParam(value = "search", required = false) String search, 
             @RequestParam("givenName") String givenName,
             @RequestParam("familyName") String familyName,

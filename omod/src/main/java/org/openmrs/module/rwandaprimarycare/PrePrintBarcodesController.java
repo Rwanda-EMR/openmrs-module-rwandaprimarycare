@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 
 @Controller
-@RequestMapping("/module/rwandaprimarycare/prePrintBarcodes")
+@RequestMapping("/module/rwandaprimarycare/prePrintBarcodes.form")
 public class PrePrintBarcodesController {
 
     protected static final Log log = LogFactory.getLog(HomepageController.class);

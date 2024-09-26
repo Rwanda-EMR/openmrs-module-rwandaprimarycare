@@ -45,7 +45,7 @@
 	<c:if test="${!empty showDiagnosisLink}">
 		<openmrs:hasPrivilege privilege="Diagnosis Capture">
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			<touchscreen:button label="${goToDiagnosisApp}" cssClass="dark" href="${pageContext.request.contextPath}/module/diagnosiscapturerwanda/diagnosisHomepage.list"/>
+			<touchscreen:button label="${goToDiagnosisApp}" cssClass="dark" href="${pageContext.request.contextPath}/module/diagnosiscapturerwanda/diagnosisHomepage.form"/>
 		</openmrs:hasPrivilege>
 	</c:if>
 	<br/>

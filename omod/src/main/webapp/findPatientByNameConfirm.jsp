@@ -99,7 +99,7 @@
 				<c:set var="yes"><spring:message code="rwandaprimarycare.touchscreen.yes"/></c:set>
 				<c:set var="no"><spring:message code="rwandaprimarycare.touchscreen.no"/></c:set>
 				<th><touchscreen:button label="${no}" onClick="window.back()"/></th>
-				<th><touchscreen:button label="${yes}" href="patient.list?skipPresentQuestion=false&patientId=${patient.patientId}"/></th>
+				<th><touchscreen:button label="${yes}" href="patient.form?skipPresentQuestion=false&patientId=${patient.patientId}"/></th>
 			</tr>
 		</table>
 	</td></tr></table>

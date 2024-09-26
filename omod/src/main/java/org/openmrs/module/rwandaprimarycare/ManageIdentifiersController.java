@@ -77,7 +77,7 @@ public class ManageIdentifiersController {
 	            log.warn("Error trying to add a patient identifier", ex);
 	            session.setAttribute(WebConstants.OPENMRS_ERROR_ATTR, ex.getMessage());
 	        }
-	        return "redirect:manageIdentifiers.list?patientId=" + patientId;
+	        return "redirect:manageIdentifiers.form?patientId=" + patientId;
     	} catch(Exception e)
     	{
     		throw new PrimaryCareException(e);
@@ -112,7 +112,7 @@ public class ManageIdentifiersController {
 	            MessageSourceAccessor msa = new MessageSourceAccessor(Context.getMessageSourceService().getActiveMessageSource());
 	            session.setAttribute(WebConstants.OPENMRS_ERROR_ATTR, msa.getMessage("rwandaprimarycare.mustHaveAnId"));
 	        }            
-	        return "redirect:manageIdentifiers.list?patientId=" + patientId;
+	        return "redirect:manageIdentifiers.form?patientId=" + patientId;
     	} catch(Exception e)
     	{
     		throw new PrimaryCareException(e);

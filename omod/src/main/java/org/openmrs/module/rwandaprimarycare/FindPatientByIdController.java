@@ -16,7 +16,7 @@ public class FindPatientByIdController {
     
     final static int MAX_RESULTS = 10;
     
-    @RequestMapping("/module/rwandaprimarycare/findPatientById")
+    @RequestMapping("/module/rwandaprimarycare/findPatientById.form")
     public void /*String*/ setupForm(@RequestParam(value="search", required=false) String search, HttpSession session, ModelMap model) throws PrimaryCareException {
     	//LK: Need to ensure that all primary care methods only throw a PrimaryCareException
     	//So that errors will be directed to a touch screen error page

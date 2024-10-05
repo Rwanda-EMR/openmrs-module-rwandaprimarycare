@@ -82,7 +82,9 @@ public class RwandaPrimaryCarePatientDashboardController {
 	                pa.getAttributeType().getName();
 	            }
 	            for (PatientIdentifier pi : patient.getIdentifiers()){
-	                pi.getLocation().getName();
+					if (pi.getLocation() != null) {
+						pi.getLocation().getName();
+					}
 	            }
 	        model.addAttribute(patient);
 	        

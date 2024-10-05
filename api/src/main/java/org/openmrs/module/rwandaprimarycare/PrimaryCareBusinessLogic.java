@@ -821,7 +821,7 @@ public class PrimaryCareBusinessLogic {
         PatientIdentifierType pit = PrimaryCareBusinessLogic.getPrimaryPatientIdentiferType();
         List<PatientIdentifier> piList = patient.getActiveIdentifiers();
         for (PatientIdentifier pi : piList){
-            if (pi.getLocation().getLocationId().equals(location.getLocationId())
+            if (pi.getLocation() != null && pi.getLocation().getLocationId().equals(location.getLocationId())
                     && pi.getIdentifierType().getPatientIdentifierTypeId().equals(pit.getPatientIdentifierTypeId())){
                         return  false;
             }        

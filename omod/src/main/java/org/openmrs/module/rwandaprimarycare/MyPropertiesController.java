@@ -20,21 +20,21 @@ public class MyPropertiesController {
 	protected static final Log log = LogFactory
 			.getLog(MyPropertiesController.class);
 
-	@RequestMapping("/module/rwandaprimarycare/myProperties")
+	@RequestMapping("/module/rwandaprimarycare/myProperties.form")
 	public String showMyProperties(ModelMap model, HttpSession session)
 			throws PrimaryCareException {
 
 		return "/module/rwandaprimarycare/myProperties";
 	}
 
-	@RequestMapping("/module/rwandaprimarycare/keyboardType")
+	@RequestMapping("/module/rwandaprimarycare/keyboardType.form")
 	public String showSetKeyboardType(ModelMap model, HttpSession session,
 			HttpServletRequest request) throws PrimaryCareException {
 		return "/module/rwandaprimarycare/keyboardType";
 
 	}
 
-	@RequestMapping("/module/rwandaprimarycare/chooseLanguage")
+	@RequestMapping("/module/rwandaprimarycare/chooseLanguage.form")
 	public String showChooseLanguage(ModelMap model, HttpSession session,
 			HttpServletRequest request) throws PrimaryCareException {
 
@@ -45,7 +45,7 @@ public class MyPropertiesController {
 
 	}
 
-	@RequestMapping("/module/rwandaprimarycare/keyboardSelected")
+	@RequestMapping("/module/rwandaprimarycare/keyboardSelected.form")
 	public String changeUserKeyboard(ModelMap model, HttpSession session,
 			HttpServletRequest request, HttpServletResponse response)
 			throws PrimaryCareException {

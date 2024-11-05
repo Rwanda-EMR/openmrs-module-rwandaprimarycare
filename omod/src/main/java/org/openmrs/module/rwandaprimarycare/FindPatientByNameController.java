@@ -32,7 +32,7 @@ public class FindPatientByNameController {
 
     protected final Log log = LogFactory.getLog(getClass());    
     
-    @RequestMapping(value = "/module/rwandaprimarycare/findPatientByName", method = RequestMethod.GET)
+    @RequestMapping(value = "/module/rwandaprimarycare/findPatientByName.form", method = RequestMethod.GET)
     public String setupForm(
             @RequestParam(value="search", required=false) String search,
             @RequestParam(value="addIdentifier", required=false) String addIdentifier,
@@ -129,7 +129,7 @@ public class FindPatientByNameController {
         return "/module/rwandaprimarycare/findPatientByName";
     }
 
-	@RequestMapping(value = "/module/rwandaprimarycare/findPatientByNameAjax", produces = MediaType.TEXT_HTML_VALUE)
+	@RequestMapping(value = "/module/rwandaprimarycare/findPatientByNameAjax.form", produces = MediaType.TEXT_HTML_VALUE)
     public String searchAjax(
     		@RequestParam(value="search", required=false) String search,
     		@RequestParam(value="searchType", required=false) String searchType, 
@@ -173,7 +173,7 @@ public class FindPatientByNameController {
         return "/module/rwandaprimarycare/findPatientByNameAjax";
     }
     
-    @RequestMapping("/module/rwandaprimarycare/editPatientAddressAjax")
+    @RequestMapping("/module/rwandaprimarycare/editPatientAddressAjax.form")
     public String searchAddressAjax(
     		@RequestParam(value="search", required=false) String search,
     		@RequestParam(value="searchType", required=false) String searchType, 
@@ -217,7 +217,7 @@ public class FindPatientByNameController {
         return "/module/rwandaprimarycare/findPatientByNameAjax";
     }
     
-    @RequestMapping("/module/rwandaprimarycare/findPatientByNameConfirm")
+    @RequestMapping("/module/rwandaprimarycare/findPatientByNameConfirm.form")
     public String showConfirmPage(
             @RequestParam(value="patientId") int patientId,
             ModelMap map) throws PrimaryCareException {

@@ -49,7 +49,7 @@ public class RwandaPrimaryCarePatientDashboardController {
         return PrimaryCareBusinessLogic.getPatientIdentifierTypesToUse();
     }
     
-    @RequestMapping("/module/rwandaprimarycare/patient")
+    @RequestMapping("/module/rwandaprimarycare/patient.form")
     public String setupForm(
             @RequestParam("patientId") int patientId,
             @RequestParam(required=false, value="skipPresentQuestion") Boolean skipPresentQuestion,
@@ -82,7 +82,9 @@ public class RwandaPrimaryCarePatientDashboardController {
 	                pa.getAttributeType().getName();
 	            }
 	            for (PatientIdentifier pi : patient.getIdentifiers()){
-	                pi.getLocation().getName();
+					if (pi.getLocation() != null) {
+						pi.getLocation().getName();
+					}
 	            }
 	        model.addAttribute(patient);
 	        
@@ -286,7 +288,7 @@ public class RwandaPrimaryCarePatientDashboardController {
         return "/module/rwandaprimarycare/patient";
     }
     
-    @RequestMapping("/module/rwandaprimarycare/patientIsPresent")
+    @RequestMapping("/module/rwandaprimarycare/patientIsPresent.form")
     public String patientIsPresent(@RequestParam("patientId") int patientId, HttpSession session) throws PrimaryCareException {
     	//LK: Need to ensure that all primary care methods only throw a PrimaryCareException
     	//So that errors will be directed to a touch screen error page
@@ -303,7 +305,7 @@ public class RwandaPrimaryCarePatientDashboardController {
     	} 
     }
     
-    @RequestMapping("/module/rwandaprimarycare/patientIsNotPresent")
+    @RequestMapping("/module/rwandaprimarycare/patientIsNotPresent.form")
     public String patientIsNotPresent(@RequestParam("patientId") int patientId, HttpSession session, ModelMap model) throws PrimaryCareException {
     	//LK: Need to ensure that all primary care methods only throw a PrimaryCareException
     	//So that errors will be directed to a touch screen error page
@@ -317,7 +319,7 @@ public class RwandaPrimaryCarePatientDashboardController {
     	} 
     }
     
-    @RequestMapping(value="/module/rwandaprimarycare/visitDate", method=RequestMethod.GET)
+    @RequestMapping(value="/module/rwandaprimarycare/visitDate.form", method=RequestMethod.GET)
     public String visitDate(@RequestParam("patientId") int patientId, HttpSession session, ModelMap model) throws PrimaryCareException {
     	//LK: Need to ensure that all primary care methods only throw a PrimaryCareException
     	//So that errors will be directed to a touch screen error page
@@ -343,7 +345,7 @@ public class RwandaPrimaryCarePatientDashboardController {
     	} 
     }
     
-    @RequestMapping(value="/module/rwandaprimarycare/visitDate", method=RequestMethod.POST)
+    @RequestMapping(value="/module/rwandaprimarycare/visitDate.form", method=RequestMethod.POST)
     public String visitDateSumbit(@RequestParam("patientId") int patientId, 
                                   @RequestParam("visitDate") Long visitDate,
                                   HttpSession session, ModelMap model) throws PrimaryCareException {

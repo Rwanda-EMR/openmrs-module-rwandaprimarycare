@@ -60,7 +60,7 @@
 </c:if>
 
 <c:if test="${results != null}">
-    <touchscreen:patientList patients="${results}" maxResults="5" separator="" href="findPatientByNameConfirm.list" showAllIds="true"/>
+    <touchscreen:patientList patients="${results}" maxResults="5" separator="" href="findPatientByNameConfirm.form" showAllIds="true"/>
     <br/>
     <c:url var="createHref" value="createNewPatient.form">
         <c:param name="addIdentifier" value="${addIdentifier}"/>

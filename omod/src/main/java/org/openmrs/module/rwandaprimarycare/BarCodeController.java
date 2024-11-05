@@ -20,7 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class BarCodeController {
 	
-	@RequestMapping("/module/rwandaprimarycare/barCode")
+	@RequestMapping("/module/rwandaprimarycare/barCode.form")
 	public ModelAndView renderBarCode(
 	        @RequestParam(required=false,value="patientId") Integer patientId, 
 	        @RequestParam(required=false, value="multiple") Boolean multiple, 
@@ -65,7 +65,7 @@ public class BarCodeController {
 	}
 	
 	
-	@RequestMapping("/module/rwandaprimarycare/barCodeOtherLocation")
+	@RequestMapping("/module/rwandaprimarycare/barCodeOtherLocation.form")
 		public ModelAndView renderBarCode(
 	        @RequestParam(required=true, value="howManyIds") Integer numIds,
 	        @RequestParam(required=true, value="location") Integer locationId,

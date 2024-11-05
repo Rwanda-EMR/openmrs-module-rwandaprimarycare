@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;;
 
 
 @Controller
-@RequestMapping("/module/rwandaprimarycare/bulkGenerateIds")
+@RequestMapping("/module/rwandaprimarycare/bulkGenerateIds.form")
 public class GenerateIdsForOtherLocationsController {
 	
 	  protected static final Log log = LogFactory.getLog(HomepageController.class);

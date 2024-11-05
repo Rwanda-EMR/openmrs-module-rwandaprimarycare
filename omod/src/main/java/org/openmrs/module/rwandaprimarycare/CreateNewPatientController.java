@@ -33,7 +33,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-@RequestMapping("/module/rwandaprimarycare/createNewPatient")
+@RequestMapping("/module/rwandaprimarycare/createNewPatient.form")
 public class CreateNewPatientController {
 
     protected final Log log = LogFactory.getLog(getClass());

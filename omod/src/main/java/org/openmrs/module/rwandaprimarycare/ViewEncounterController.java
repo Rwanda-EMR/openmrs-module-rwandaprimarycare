@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class ViewEncounterController {
 
-    @RequestMapping("/module/rwandaprimarycare/encounter")
+    @RequestMapping("/module/rwandaprimarycare/encounter.form")
     public String viewEncounter(
             @RequestParam("encounterId") int encounterId,
             @RequestParam(required=false, value="returnUrl") String returnUrl,
@@ -33,7 +33,7 @@ public class ViewEncounterController {
         return "/module/rwandaprimarycare/encounter";
     }
 
-    @RequestMapping("/module/rwandaprimarycare/deleteEncounter")
+    @RequestMapping("/module/rwandaprimarycare/deleteEncounter.form")
     public String deleteEncounter(
             @RequestParam("encounterId") int encounterId,
             @RequestParam(required = false, value = "returnUrl") String returnUrl) throws PrimaryCareException {

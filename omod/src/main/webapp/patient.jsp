@@ -17,7 +17,7 @@
 			<openmrs:hasPrivilege privilege="Diagnosis Capture">
 				<c:set var="goToDiagnosisApp"><spring:message code="rwandaprimarycare.goToDiagnosisApplication"/></c:set>
 				<td align="center">
-					<touchscreen:button label="${goToDiagnosisApp}" cssClass="dark" href="${pageContext.request.contextPath}/module/diagnosiscapturerwanda/diagnosisPatientDashboard.list?patientId=${patient.patientId}&encounterUuid=${registrationEncounterToday.uuid}"/>
+					<touchscreen:button label="${goToDiagnosisApp}" cssClass="dark" href="${pageContext.request.contextPath}/module/diagnosiscapturerwanda/diagnosisPatientDashboard.form?patientId=${patient.patientId}&encounterUuid=${registrationEncounterToday.uuid}"/>
 				</td>	
 			</openmrs:hasPrivilege>
 		</c:if>
